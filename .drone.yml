@@ -1,0 +1,6 @@
+build:
+  image: gcc
+  commands:
+    - autoreconf --install
+    - ./configure
+    - make -j

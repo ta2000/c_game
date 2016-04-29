@@ -51,3 +51,12 @@ Makefile.in
 # Debug files
 *.dSYM/
 *.su
+
+Makefile
+config.h
+config.log
+config.status
+src/.deps/
+src/Makefile
+
+src/c_game

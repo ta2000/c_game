@@ -1,4 +1,4 @@
-#c game
+#c game [![Build Status](https://drone.carpoolme.net/api/badges/ta2000/c_game/status.svg)](https://drone.carpoolme.net/ta2000/c_game)
 
 A game written in c
 

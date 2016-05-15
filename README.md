@@ -1,6 +1,7 @@
 #c game [![Build Status](https://drone.carpoolme.net/api/badges/ta2000/c_game/status.svg)](https://drone.carpoolme.net/ta2000/c_game)
 
-A game written in c
+A component based game written in C. I plan to use OpenGL for graphics once
+most of the game logic is completed.
 
 Developing
 ---

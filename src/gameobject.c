@@ -2,25 +2,10 @@
 
 #include "gameobject.h"
 
-void GameObject_init(void * self)
+void GameObject_init(struct GameObject * self, int x, int y, int hp)
 {
-    struct GameObject * obj = self;
-    obj->x = 10;
-    obj->y = 10;
-}
-
-void GameObject_update(void * self)
-{
-
-}
-
-void GameObject_render(void * self)
-{
-
-}
-
-void GameObject_print(void * self)
-{
-    struct GameObject * obj = self;
-    printf("GameObject location: [%d,%d]\n", obj->x, obj->y);
+    self->x = x;
+    self->y = y;
+    self->hp = hp;
+    printf("x: %d\ny: %d\nhp: %d\n", self->x, self->y, self->hp);
 }

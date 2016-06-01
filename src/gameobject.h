@@ -3,16 +3,9 @@
 
 struct GameObject
 {
-    int x, y;
-    void (*init)(void * self);
-    void (*update)(void * self);
-    void (*render)(void * self);
-    void (*print)(void * self);
+    int x, y, hp;
 };
 
-void GameObject_init(void * self);
-void GameObject_update(void * self);
-void GameObject_render(void * self);
-void GameObject_print(void * self);
+void GameObject_init(struct GameObject * self, int x, int y, int hp);
 
 #endif

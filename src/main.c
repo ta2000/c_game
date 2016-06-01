@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include "gameobject.h"
+#include "unit.h"
 
 int main(int argc, char *argv[])
 {
-    struct GameObject myObj;
-    GameObject_init(&myObj);
-    GameObject_print(&myObj);
+    struct Unit tank;
+    Unit_init(&tank, 2, 3, 80, 10, 180); 
 
     return 0;
 }

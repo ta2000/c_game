@@ -10,13 +10,20 @@ void Unit_init(
 {
     // Call parent init
     GameObject_init( (struct GameObject *)self, x, y, hp );
-    // Init rest
+    // Init unit properties
     self->velocity = velocity;
     self->direction = direction;
-    printf("direction: %d\nvelocity: %d\n", self->velocity, self->direction);
+    //printf("direction: %d\nvelocity: %d\n", self->velocity, self->direction);
+    // Map functions
+    self->inUse = Unit_inUse;
 }
 
-void Unit_move(struct Unit * self)
+_Bool Unit_inUse(struct Unit * self)
 {
+    return self->base.hp > 0;
+}
 
+void Unit_update(struct Unit * self)
+{
+    printf("Updating unit at [%d,%d]\n", self->base.x, self->base.y);
 }

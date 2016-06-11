@@ -14,4 +14,6 @@ void Unitpool_create(
     int velocity, int direction
 );
 
+void Unitpool_update(struct Unitpool * self);
+
 #endif

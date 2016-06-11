@@ -14,4 +14,6 @@ void Player_init(
     int metal, int power
 );
 
+void Player_update(struct Player * self);
+
 #endif

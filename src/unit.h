@@ -5,10 +5,12 @@ struct Unit
 {
     struct GameObject base;
     int velocity, direction;
-    _Bool (*inUse)();
+    _Bool selected;
 };
 
-void Unit_init(
+void Unit_init(struct Unit * self);
+
+void Unit_create(
     struct Unit * self,
     int x, int y, int hp,
     int velocity, int direction

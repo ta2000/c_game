@@ -5,10 +5,11 @@ struct Game
 {
     _Bool running;
     void (*run)();
-    struct Unit units[5];
+    struct Player players[1];
 };
 
 void Game_init(struct Game * self);
+
 void Game_run(struct Game * self);
 
 

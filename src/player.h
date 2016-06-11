@@ -5,6 +5,8 @@ struct Player
 {
     int metal;
     int power;
+    struct Unitpool unitpool;
+    // Do input stuff now
 };
 
 void Player_init(

@@ -2,7 +2,12 @@
 
 #include "gameobject.h"
 
-void GameObject_init(struct GameObject * self, int x, int y, int hp)
+void GameObject_init(struct GameObject * self)
+{
+    self->hp = 0;
+}
+
+void GameObject_create(struct GameObject * self, int x, int y, int hp)
 {
     self->x = x;
     self->y = y;

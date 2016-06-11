@@ -6,14 +6,18 @@ struct Unitpool
     struct Unit units[3];
 };
 
+// Initialize hp of all units for inUse function
 void Unitpool_init(struct Unitpool * self);
 
-void Unitpool_create(
+// Initialize remaining properties of all units
+// Returns 1 if unit was created, 0 if all units in use
+_Bool Unitpool_create(
     struct Unitpool * self,
     int x, int y, int hp,
     int velocity, int direction
 );
 
+// Update all units currently in use
 void Unitpool_update(struct Unitpool * self);
 
 #endif

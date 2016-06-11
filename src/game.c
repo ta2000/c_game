@@ -8,7 +8,7 @@
 #include "player.h"
 #include "game.h"
 
-void Game_init(struct Game * self)
+void Game_create(struct Game * self)
 {
     self->running = 1;
 
@@ -16,7 +16,7 @@ void Game_init(struct Game * self)
     int i;
     for (i = 0; i < sizeof(self->players)/sizeof(self->players[0]); i++)
     {
-        Player_init( &(self->players[i]), 0, 0 );
+        Player_create( &(self->players[i]), 0, 0 );
     }
 }
 

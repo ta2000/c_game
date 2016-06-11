@@ -11,7 +11,7 @@ struct Game game;
 
 int main(int argc, char *argv[])
 {
-    Game_init(&game);
+    Game_create(&game);
     Game_run(&game);
 
     return 0;

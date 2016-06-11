@@ -13,7 +13,7 @@ void Unitpool_init(struct Unitpool * self)
     }
 }
 
-void Unitpool_create(struct Unitpool * self, int x, int y, int hp, int velocity, int direction)
+_Bool Unitpool_create(struct Unitpool * self, int x, int y, int hp, int velocity, int direction)
 {
     int i;
     for (i = 0; i < sizeof(self->units)/sizeof(self->units[0]); i++)
@@ -21,10 +21,10 @@ void Unitpool_create(struct Unitpool * self, int x, int y, int hp, int velocity,
         if (!Unit_inUse( &(self->units[i]) ))
         {
             Unit_create( &(self->units[i]), x, y, hp, velocity, direction);
-            return;
+            return 1;
         }
     }
-    return;
+    return 0;
 }
 
 void Unitpool_update(struct Unitpool * self)

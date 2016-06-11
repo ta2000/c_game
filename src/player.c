@@ -5,7 +5,7 @@
 #include "unitpool.h"
 #include "player.h"
 
-void Player_init(struct Player * self, int metal, int power)
+void Player_create(struct Player * self, int metal, int power)
 {
     // Init player properties
     self->metal = metal;

@@ -9,11 +9,10 @@ struct Player
     // Do input stuff now
 };
 
-void Player_init(
-    struct Player * self,
-    int metal, int power
-);
+// Initialize all values of player
+void Player_create(struct Player * self, int metal, int power);
 
+// Update controls and unitpool
 void Player_update(struct Player * self);
 
 #endif

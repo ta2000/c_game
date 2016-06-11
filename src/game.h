@@ -8,8 +8,10 @@ struct Game
     struct Player players[1];
 };
 
-void Game_init(struct Game * self);
+// Create all players
+void Game_create(struct Game * self);
 
+// Begin game loop
 void Game_run(struct Game * self);
 
 

@@ -4,7 +4,6 @@
 struct Game
 {
     _Bool running;
-    void (*run)();
     struct Player players[1];
 };
 

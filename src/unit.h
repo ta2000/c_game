@@ -5,21 +5,18 @@ struct Unit
 {
     struct GameObject base;
     int velocity, direction;
-    _Bool selected;
+	float targetX, targetY;
 };
 
-// Initialize hp of unit for inUse function
+// Initialize properties used by pool
 void Unit_init(struct Unit * self);
 
 // Initialize remaining properties of unit
 void Unit_create(
     struct Unit * self,
-    int x, int y, int hp,
+    float x, float y, int hp, int cost,
     int velocity, int direction
 );
-
-// Return whether health is greater than 0
-_Bool Unit_inUse(struct Unit * self);
 
 // Update the unit
 void Unit_update(struct Unit * self);

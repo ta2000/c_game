@@ -13,7 +13,7 @@ void Unitpool_init(struct Unitpool * self);
 // Returns 1 if unit was created, 0 if all units in use
 _Bool Unitpool_create(
     struct Unitpool * self,
-    int x, int y, int hp,
+    float x, float y, int hp, int cost,
     int velocity, int direction
 );
 

@@ -7,10 +7,16 @@ void GameObject_init(struct GameObject * self)
     self->hp = 0;
 }
 
-void GameObject_create(struct GameObject * self, int x, int y, int hp)
+void GameObject_create(struct GameObject * self, float x, float y, int hp, int cost)
 {
     self->x = x;
     self->y = y;
     self->hp = hp;
-    //printf("x: %d\ny: %d\nhp: %d\n", self->x, self->y, self->hp);
+    self->cost = cost;
+	self->selected = 0;
+}
+
+_Bool GameObject_inUse(struct GameObject * self)
+{
+    return self->hp > 0;
 }

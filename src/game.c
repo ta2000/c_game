@@ -5,6 +5,9 @@
 #include "gameobject.h"
 #include "unit.h"
 #include "unitpool.h"
+#include "factory.h"
+#include "factorypool.h"
+#include "input.h"
 #include "player.h"
 #include "game.h"
 
@@ -16,7 +19,7 @@ void Game_create(struct Game * self)
     int i;
     for (i = 0; i < sizeof(self->players)/sizeof(self->players[0]); i++)
     {
-        Player_create( &(self->players[i]), 0, 0 );
+        Player_create( &(self->players[i]), 300 );
     }
 }
 
@@ -29,12 +32,12 @@ void Game_run(struct Game * self)
         // Update all players
         for (i = 0; i < sizeof(self->players)/sizeof(self->players[0]); i++)
         {
-            printf("===== Player %d =====\n", i+1);
+            printf("=== Player %d - Metal: %d ===\n", i+1, self->players[i].metal);
             Player_update( &(self->players[i]) );
         }
         // Newline before next frame
         printf("\n");
-        sleep(2);
+        //sleep(2);
     }
 }
 

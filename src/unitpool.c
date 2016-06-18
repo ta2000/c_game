@@ -13,14 +13,14 @@ void Unitpool_init(struct Unitpool * self)
     }
 }
 
-_Bool Unitpool_create(struct Unitpool * self, int x, int y, int hp, int velocity, int direction)
+_Bool Unitpool_create(struct Unitpool * self, float x, float y, int hp, int cost, int velocity, int direction)
 {
     int i;
     for (i = 0; i < sizeof(self->units)/sizeof(self->units[0]); i++)
     {
-        if (!Unit_inUse( &(self->units[i]) ))
+        if (!GameObject_inUse( &(self->units[i].base) ))
         {
-            Unit_create( &(self->units[i]), x, y, hp, velocity, direction);
+            Unit_create( &(self->units[i]), x, y, hp, velocity, direction, cost);
             return 1;
         }
     }
@@ -32,7 +32,7 @@ void Unitpool_update(struct Unitpool * self)
     int i;
     for (i = 0; i < sizeof(self->units)/sizeof(self->units[0]); i++)
     {
-        if (Unit_inUse( &(self->units[i]) ))
+        if (GameObject_inUse( &(self->units[i].base) ))
         {
             Unit_update( &(self->units[i]) );
         }

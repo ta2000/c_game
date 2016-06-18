@@ -10,24 +10,19 @@ void Unit_init(struct Unit * self)
 
 void Unit_create(
     struct Unit * self,
-    int x, int y, int hp,
+    float x, float y, int hp, int cost,
     int velocity, int direction)
 {
-    // Call parent init
-    GameObject_create( &(self->base), x, y, hp );
+    // Call parent create
+    GameObject_create( &(self->base), x, y, hp, cost );
     // Init unit properties
     self->velocity = velocity;
     self->direction = direction;
-    self->selected = 0;
-    //printf("direction: %d\nvelocity: %d\n", self->velocity, self->direction);
-}
-
-_Bool Unit_inUse(struct Unit * self)
-{
-    return self->base.hp > 0;
+    self->targetX = x;
+    self->targetY = y;
 }
 
 void Unit_update(struct Unit * self)
 {
-    printf("Updating Unit %p [%d,%d]\n", self, self->base.x, self->base.y);
+    printf("Updating Unit %p [%.2f,%.2f]\n", self, self->base.x, self->base.y);
 }

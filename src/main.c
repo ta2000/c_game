@@ -4,7 +4,11 @@
 #include "gameobject.h"
 #include "unit.h"
 #include "unitpool.h"
+#include "factory.h"
+#include "factorypool.h"
+#include "input.h"
 #include "player.h"
+
 #include "game.h"
 
 struct Game game;

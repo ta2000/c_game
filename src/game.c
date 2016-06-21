@@ -213,7 +213,7 @@ void Game_loadData(struct Game * self, char * key, char * value)
 	else if (self->level == PRODUCTS)
 	{
 		// Down a level
-		if (strcmp(key, "unit") == 0)
+		if (strcmp(key, "{") == 0)
 		{
 			self->level = UNIT;
 		}

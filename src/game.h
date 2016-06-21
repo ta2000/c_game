@@ -14,7 +14,7 @@ struct Game
 {
     _Bool running;
     struct Player players[1];
-	int nextAvailablePlayer;
+	int nextUnloadedPlayer;
 	enum IndentationLevel level;
 };
 

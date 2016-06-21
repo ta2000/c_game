@@ -10,6 +10,7 @@
 
 void Player_create(struct Player * self)
 {
+	self->nextUnloadedFactory = 0;
     // Init all units in pool
     Unitpool_init( &(self->unitpool) );
     // Init all factories in pool
@@ -21,4 +22,36 @@ void Player_update(struct Player * self)
 	handleInput(self);
     Unitpool_update( &(self->unitpool) );
     Factorypool_update( &(self->factorypool) );
+}
+
+void Player_placeFactory(struct Player * self, float x, float y, struct Factory * parent)
+{
+	// Abort and show message if not enough metal
+	if (self->metal < parent->cost)
+	{
+		printf("Need %d more metal for %s",
+			(parent->cost - self->metal),
+			parent->name
+		);
+		return;
+	}
+	
+	// Try creating a factory
+	if ( Factorypool_create(
+			&(self->factorypool),
+			x, y, parent
+		) == 1 )
+	// If successful
+	{
+		printf("Producing %s (-%d metal).\n",
+			parent->name,
+			parent->cost
+		);
+		self->metal -= parent->cost;
+	}
+	// If unsuccessful
+	else
+	{
+		printf("Factory limit reached.\n");
+	}
 }

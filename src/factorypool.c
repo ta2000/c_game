@@ -8,8 +8,6 @@
 
 void Factorypool_init(struct Factorypool * self)
 {
-	self->nextAvailableFactory = 0;
-
     int i;
     for (i = 0; i < sizeof(self->factories)/sizeof(self->factories[0]); i++)
     {
@@ -17,16 +15,19 @@ void Factorypool_init(struct Factorypool * self)
     }
 }
 
-_Bool Factorypool_create(struct Factorypool * self, float x, float y)
+_Bool Factorypool_create(struct Factorypool * self, float x, float y, struct Factory * parent)
 {
-    int i;
-    for (i = 0; i < sizeof(self->factories)/sizeof(self->factories[0]); i++)
+    struct Factory* factory;
+	factory = Factorypool_getNextFactory(self);
+	
+	if (factory != NULL)
     {
-        if (!GameObject_inUse( &(self->factories[i].base) ))
-        {
-            Factory_create( &(self->factories[i]), x, y);
-            return 1;
-        }
+		Factory_create(factory, x, y);
+		Factory_loadData(
+			factory,
+			parent
+		);
+		return 1;
     }
     return 0;
 }
@@ -41,4 +42,17 @@ void Factorypool_update(struct Factorypool * self)
             Factory_update( &(self->factories[i]) );
         }
     }
+}
+
+struct Factory* Factorypool_getNextFactory(struct Factorypool * self)
+{
+    int i;
+    for (i = 0; i < sizeof(self->factories)/sizeof(self->factories[0]); i++)
+    {
+        if (!GameObject_inUse( &(self->factories[i].base) ))
+        {
+            return &(self->factories[i]);
+        }
+    }
+    return NULL;
 }

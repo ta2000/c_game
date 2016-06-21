@@ -19,7 +19,7 @@ void Game_create(struct Game * self)
     self->running = 1;
 
 	// Index of first unloaded player struct
-    self->nextAvailablePlayer = 0;
+    self->nextUnloadedPlayer = 0;
 
 	// For reading from file
 	self->level = NONE;
@@ -145,13 +145,13 @@ void Game_loadData(struct Game * self, char * key, char * value)
 {
 	// Get next uninitialized player
 	struct Player * playerLoading;
-	playerLoading = &self->players[self->nextAvailablePlayer];
+	playerLoading = &self->players[self->nextUnloadedPlayer];
 	// Get next uninitialized factory
 	struct Factory * factoryLoading;
-	factoryLoading = &playerLoading->factorypool.factories[playerLoading->factorypool.nextAvailableFactory];
+	factoryLoading = &playerLoading->factoryTypes[playerLoading->nextUnloadedFactory];
 	// Get next uninitialized factory product
 	struct Unit * unitLoading;
-	unitLoading = &factoryLoading->products[factoryLoading->nextAvailableProduct];
+	unitLoading = &factoryLoading->products[factoryLoading->nextUnloadedProduct];
 
 	// Start above faction level
 	if (self->level == NONE)
@@ -176,23 +176,24 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		else if (strcmp(key, "}") == 0)
 		{
 			self->level = NONE;
-			self->nextAvailablePlayer++;
+			self->nextUnloadedPlayer++;
 		}
 	}
 	// Set factory data
 	else if (self->level == FACTORY)
 	{
-		// Name
 		if (strcmp(key, "name") == 0)
 		{
 			strcpy(factoryLoading->name, value);
 		}
-		// Cost
+		if (strcmp(key, "hp") == 0)
+		{
+			factoryLoading->base.maxHp = Util_parse(value, 1, INT_MAX);
+		}
 		else if (strcmp(key, "cost") == 0)
 		{
 			factoryLoading->cost = Util_parse(value, INT_MIN, INT_MAX);
 		}
-		// Speed
 		else if (strcmp(key, "speed") == 0)
 		{
 			factoryLoading->speed = Util_parse(value, CHAR_MIN, CHAR_MAX);
@@ -206,7 +207,7 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		else if (strcmp(key, "}") == 0)
 		{
 			self->level = FACTION;
-			playerLoading->factorypool.nextAvailableFactory++;
+			playerLoading->nextUnloadedFactory++;
 		}
 	}
 	// Set factory products data
@@ -234,6 +235,11 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		{
 			unitLoading->base.maxHp = Util_parse(value, INT_MIN, INT_MAX);
 		}
+		else if (strcmp(key, "cost") == 0)
+		{
+			// Store cost in factory
+			factoryLoading->costs[factoryLoading->nextUnloadedProduct] = Util_parse(value, INT_MIN, INT_MAX);
+		}
 		else if (strcmp(key, "max-velocity") == 0)
 		{
 			unitLoading->maxVelocity = Util_parse(value, INT_MIN, INT_MAX);
@@ -250,7 +256,7 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		{
 			unitLoading->range = Util_parse(value, INT_MIN, INT_MAX);
 		}
-		else if (strcmp(key, "sheild") == 0)
+		else if (strcmp(key, "shield-radius") == 0)
 		{
 			unitLoading->shieldRadius = Util_parse(value, 0, UCHAR_MAX);
 		}
@@ -258,7 +264,7 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		else if (strcmp(key, "}") == 0)
 		{
 			self->level = PRODUCTS;
-			factoryLoading->nextAvailableProduct++;
+			factoryLoading->nextUnloadedProduct++;
 		}
 	}
 }

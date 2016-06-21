@@ -7,14 +7,16 @@
 void Unit_init(struct Unit * self)
 {
     GameObject_init( &(self->base) );
+
+	memset(self->name, '\0', sizeof(self->name));
 }
 
 void Unit_loadData(
 	struct Unit * self,
-	struct Unit * parent
-)
+	struct Unit * parent)
 {
 	strcpy(self->name, parent->name);
+	self->base.maxHp = parent->base.maxHp;
 	self->maxVelocity = parent->maxVelocity;
 	self->damage = parent->damage;
 	self->range = parent->range;
@@ -36,5 +38,5 @@ void Unit_create(
 
 void Unit_update(struct Unit * self)
 {
-    printf("Updating Unit %p [%.2f,%.2f]\n", self, self->base.x, self->base.y);
+    printf("Updating %s [%.2f,%.2f]\n", self->name, self->base.x, self->base.y);
 }

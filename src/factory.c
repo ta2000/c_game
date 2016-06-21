@@ -12,7 +12,7 @@ void Factory_init(struct Factory * self)
 {
     GameObject_init( &(self->base) );
 	
-	self->nextAvailableProduct = 0;
+	self->nextUnloadedProduct = 0;
 
 	// Clear out products array
 	memset(self->products, 0, sizeof(self->products));
@@ -22,16 +22,14 @@ void Factory_init(struct Factory * self)
 
 void Factory_loadData(
 	struct Factory * self,
-	int maxHp, int cost,
-	unsigned char speed,
-	struct Unit * products,
-	int * costs)
+	struct Factory * parent)
 {
-	self->base.maxHp = maxHp;
-	self->speed = speed;	
-
-	memcpy(self->products, products, sizeof(self->products));
-	memcpy(self->costs, costs, sizeof(self->costs));
+	strcpy(self->name, parent->name);
+	self->base.maxHp = parent->base.maxHp;
+	self->cost = parent->cost;
+	memcpy(self->products, parent->products, sizeof(self->products));
+	memcpy(self->costs, parent->costs, sizeof(self->costs));
+	self->speed = parent->speed;	
 }
 
 void Factory_create(
@@ -48,10 +46,22 @@ void Factory_create(
 
 void Factory_produceUnit(struct Factory * self, int selectedUnit, struct Player * owner)
 {
+	// Abort if selectedUnit is out of range
+	if (selectedUnit >
+			sizeof(self->products)/sizeof(self->products[0]) ||
+		selectedUnit < 
+			0)
+	{
+		return;
+	}
+
 	// Abort and show message if not enough metal
 	if ( owner->metal < self->costs[selectedUnit] )
 	{
-		printf( "Need %d more metal for unit.\n", (self->costs[selectedUnit] - owner->metal) );
+		printf( "Need %d more metal for %s.\n",
+			(self->costs[selectedUnit] - owner->metal),
+			self->products[selectedUnit].name
+		);
 		return;
 	}
 
@@ -64,16 +74,21 @@ void Factory_produceUnit(struct Factory * self, int selectedUnit, struct Player 
 		) == 1 )
 	// If successful
 	{
+		printf("Producing %s at %s (-%d metal).\n",
+			self->products[selectedUnit].name,
+			self->name,
+			self->costs[selectedUnit]
+		);
 		owner->metal -= self->costs[selectedUnit];
 	}
 	// If unsuccessful
 	else
 	{
-		printf("Unit cap reached.\n");
+		printf("Unit limit reached.\n");
 	}
 }
 
 void Factory_update(struct Factory * self)
 {
-    printf("Updating Factory %p [%.2f,%.2f].\n", self, self->base.x, self->base.y);
+    printf("Updating %s [%.2f,%.2f].\n", self->name, self->base.x, self->base.y);
 }

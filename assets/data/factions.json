@@ -1,9 +1,10 @@
 {
 	"faction": {
 		"name":"Humans",
-		"metal":45,
+		"metal":600,
 		"factory": {
 			"name":"Infantry Factory",
+			"hp":200,
 			"cost":120,
 			"speed":10,
 			"products": [

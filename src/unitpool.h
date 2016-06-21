@@ -20,4 +20,7 @@ _Bool Unitpool_create(
 // Update all units currently in use
 void Unitpool_update(struct Unitpool * self);
 
+// Return address of next !inUse unit
+struct Unit* Unitpool_getNextUnit(struct Unitpool * self);
+
 #endif

@@ -10,7 +10,7 @@ int Util_parse(char * string, long min, long max)
 	if (temp >= min && temp <= max)
 		return temp;
 	else
-		return 0;
+		return min;
 }
 
 void Util_strcpy(char * dest, char * string)

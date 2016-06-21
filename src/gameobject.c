@@ -11,6 +11,7 @@ void GameObject_create(struct GameObject * self, float x, float y)
 {
     self->x = x;
     self->y = y;
+	self->hp = 1;
 	self->selected = 0;
 }
 

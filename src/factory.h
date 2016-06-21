@@ -12,20 +12,14 @@ struct Factory
 	struct Unit products[10];
 	int costs[10];
 	unsigned char speed, progress;
-	int nextAvailableProduct;
+	int nextUnloadedProduct;
 };
 
 // Initialize properties used by pool
 void Factory_init(struct Factory * self);
 
-// Initialize properties found in data
-void Factory_loadData(
-	struct Factory * self,
-	int maxHp, int cost,
-	unsigned char productionSpeed,
-	struct Unit * products,
-	int * costs
-);
+// Load data from parent factory
+void Factory_loadData(struct Factory * self, struct Factory * parent);
 
 // Initialize remaining properties of factory
 void Factory_create(
@@ -38,6 +32,5 @@ void Factory_update(struct Factory * self);
 
 // Create a unit, subtract resources
 void Factory_produceUnit(struct Factory * self, int selectedUnit, struct Player * owner);
-
 
 #endif

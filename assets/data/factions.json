@@ -1,0 +1,59 @@
+{
+	"Humans": {
+		"metal":45,
+		"factory": {
+			"name":"Infantry Factory",
+			"cost":120,
+			"speed":10,
+			"products": [
+				"unit": {
+					"name":"Light",
+					"hp":10,
+					"cost":20,
+					"max-velocity":50,
+					"damage":2,
+					"firerate":5,
+					"range":50,
+					"shield-radius":0
+				},
+				"unit": {
+					"name":"Medium",
+					"hp":40,
+					"cost":30,
+					"max-velocity":50,
+					"damage":15,
+					"firerate":15,
+					"range":50,
+					"shield-radius":0
+				},
+				"unit": {
+					"name":"Heavy",
+					"hp":80,
+					"cost":100,
+					"max-velocity":50,
+					"damage":270,
+					"firerate":25,
+					"range":60,
+					"shield-radius":50
+				}
+			]
+		},
+		"factory": {
+			"name":"Experimental Factory",
+			"cost":300,
+			"speed":1,
+			"products": [
+				"unit": {
+					"name":"Giant",
+					"hp":1000,
+					"cost":1500,
+					"max-velocity":10,
+					"damage":2000,
+					"firerate":100,
+					"range":100,
+					"shield-radius":0
+				}
+			]
+		}
+	}
+}

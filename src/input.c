@@ -23,18 +23,14 @@ void handleInput(struct Player * player)
 	
 	if (key == 'f')
 	{
-		Player_placeFactory(player, 4, 6, 200, 120);
+
 	}
 	else if (key == 'u')
 	{
-		Player_produceUnits(player);
+
 	} 
 	else if (key == 'm')
 	{
-		Player_moveUnits(player, 0, 0);
+
 	}
-	/*else if (key == 's')
-	{
-		Player_selectUnits(player);
-	}*/
 }

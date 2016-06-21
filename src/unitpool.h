@@ -3,18 +3,18 @@
 
 struct Unitpool
 {
-    struct Unit units[3];
+    struct Unit units[5];
 };
 
 // Initialize hp of all units for inUse function
 void Unitpool_init(struct Unitpool * self);
 
-// Initialize remaining properties of all units
+// Get unused unit and set properties equal to factory selected unit
 // Returns 1 if unit was created, 0 if all units in use
 _Bool Unitpool_create(
     struct Unitpool * self,
-    float x, float y, int hp, int cost,
-    int velocity, int direction
+    float x, float y,
+	struct Unit * parent
 );
 
 // Update all units currently in use

@@ -7,12 +7,10 @@ void GameObject_init(struct GameObject * self)
     self->hp = 0;
 }
 
-void GameObject_create(struct GameObject * self, float x, float y, int hp, int cost)
+void GameObject_create(struct GameObject * self, float x, float y)
 {
     self->x = x;
     self->y = y;
-    self->hp = hp;
-    self->cost = cost;
 	self->selected = 0;
 }
 

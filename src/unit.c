@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "gameobject.h"
 #include "unit.h"
@@ -8,18 +9,35 @@ void Unit_init(struct Unit * self)
     GameObject_init( &(self->base) );
 }
 
+void Unit_loadData(
+	struct Unit * self,
+	char * name,
+	int maxHp,
+	int maxVelocity,
+	int damage,
+	int range,
+	unsigned char firerate,
+	unsigned char shieldRadius
+)
+{
+	strcpy(name, self->name);
+	self->maxVelocity = maxVelocity;
+	self->damage = damage;
+	self->range = range;
+	self->firerate = firerate;
+	self->shieldRadius = shieldRadius;
+}
+
 void Unit_create(
     struct Unit * self,
-    float x, float y, int hp, int cost,
-    int velocity, int direction)
+    float x, float y)
 {
     // Call parent create
-    GameObject_create( &(self->base), x, y, hp, cost );
+    GameObject_create( &(self->base), x, y );
     // Init unit properties
-    self->velocity = velocity;
-    self->direction = direction;
     self->targetX = x;
     self->targetY = y;
+	self->shieldHealth = 100;
 }
 
 void Unit_update(struct Unit * self)

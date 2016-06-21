@@ -13,15 +13,25 @@ void Unitpool_init(struct Unitpool * self)
     }
 }
 
-_Bool Unitpool_create(struct Unitpool * self, float x, float y, int hp, int cost, int velocity, int direction)
+_Bool Unitpool_create(struct Unitpool * self, float x, float y, struct Unit * parent)
 {
     int i;
     for (i = 0; i < sizeof(self->units)/sizeof(self->units[0]); i++)
     {
         if (!GameObject_inUse( &(self->units[i].base) ))
         {
-            Unit_create( &(self->units[i]), x, y, hp, velocity, direction, cost);
-            return 1;
+            Unit_create( &(self->units[i]), x, y);
+			Unit_loadData(
+				&(self->units[i]),
+				parent->name,
+				parent->base.maxHp,
+				parent->maxVelocity,
+				parent->damage,
+				parent->range,
+				parent->firerate,
+				parent->shieldRadius
+			);
+			return 1;
         }
     }
     return 0;

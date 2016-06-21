@@ -4,7 +4,7 @@
 struct GameObject
 {
     float x, y;
-	int hp, cost;
+	int hp, maxHp;
 	_Bool selected;
 };
 
@@ -12,7 +12,7 @@ struct GameObject
 void GameObject_init(struct GameObject * self);
 
 // Initialize remaining properties of gameobject
-void GameObject_create(struct GameObject * self, float x, float y, int hp, int cost);
+void GameObject_create(struct GameObject * self, float x, float y);
 
 // Return whether health is greater than 0
 _Bool GameObject_inUse(struct GameObject * self);

@@ -11,12 +11,18 @@
 
 #include "game.h"
 
-struct Game game;
+static struct Game game;
 
 int main(int argc, char *argv[])
 {
+	/*
+	printf("Sizeof struct game is %zu bytes.\n", sizeof(struct Game));
+	printf("Sizeof struct unit is %zu bytes.\n", sizeof(struct Unit));
+	*/
+
     Game_create(&game);
-    Game_run(&game);
+	Game_readData(&game);
+    //Game_run(&game);
 
     return 0;
 }

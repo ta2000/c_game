@@ -9,12 +9,11 @@ struct Factorypool
 // Initialize hp of all units for inUse function
 void Factorypool_init(struct Factorypool * self);
 
-// Initialize remaining properties of all factories
+// Get unused factory and assign properties
 // Returns 1 if factory was created, 0 if all factories in use
 _Bool Factorypool_create(
     struct Factorypool * self,
-    float x, float y, int hp, int cost,
-	struct Unit * products
+    float x, float y
 );
 
 // Update all units currently in use

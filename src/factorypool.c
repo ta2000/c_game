@@ -8,6 +8,8 @@
 
 void Factorypool_init(struct Factorypool * self)
 {
+	self->nextAvailableFactory = 0;
+
     int i;
     for (i = 0; i < sizeof(self->factories)/sizeof(self->factories[0]); i++)
     {

@@ -3,6 +3,7 @@
 
 enum IndentationLevel
 {
+	NONE,
 	FACTION,
 	FACTORY,
 	PRODUCTS,
@@ -13,6 +14,7 @@ struct Game
 {
     _Bool running;
     struct Player players[1];
+	int nextAvailablePlayer;
 	enum IndentationLevel level;
 };
 
@@ -29,6 +31,6 @@ _Bool Game_readData(struct Game * self);
 void Game_parseLine(struct Game * self, char * line);
 
 // Set values of players using key/value
-void Game_loadData(struct Game * self, char * key, char * value, struct Player * playerLoading);
+void Game_loadData(struct Game * self, char * key, char * value);
 
 #endif

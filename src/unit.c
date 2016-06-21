@@ -11,21 +11,15 @@ void Unit_init(struct Unit * self)
 
 void Unit_loadData(
 	struct Unit * self,
-	char * name,
-	int maxHp,
-	int maxVelocity,
-	int damage,
-	int range,
-	unsigned char firerate,
-	unsigned char shieldRadius
+	struct Unit * parent
 )
 {
-	strcpy(name, self->name);
-	self->maxVelocity = maxVelocity;
-	self->damage = damage;
-	self->range = range;
-	self->firerate = firerate;
-	self->shieldRadius = shieldRadius;
+	strcpy(self->name, parent->name);
+	self->maxVelocity = parent->maxVelocity;
+	self->damage = parent->damage;
+	self->range = parent->range;
+	self->firerate = parent->firerate;
+	self->shieldRadius = parent->shieldRadius;
 }
 
 void Unit_create(

@@ -4,6 +4,7 @@
 struct Factorypool
 {
     struct Factory factories[3];
+	int nextAvailableFactory;
 };
 
 // Initialize hp of all units for inUse function

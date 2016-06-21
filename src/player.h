@@ -9,7 +9,7 @@ struct Player
 };
 
 // Initialize all values of player
-void Player_create(struct Player * self, int metal);
+void Player_create(struct Player * self);
 
 // Update controls and unitpool
 void Player_update(struct Player * self);

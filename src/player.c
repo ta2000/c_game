@@ -8,10 +8,8 @@
 #include "input.h"
 #include "player.h"
 
-void Player_create(struct Player * self, int metal)
+void Player_create(struct Player * self)
 {
-    // Init player properties
-    self->metal = metal;
     // Init all units in pool
     Unitpool_init( &(self->unitpool) );
     // Init all factories in pool

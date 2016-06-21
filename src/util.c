@@ -13,11 +13,11 @@ int Util_parse(char * string, long min, long max)
 		return 0;
 }
 
-void Util_strcpy(char * string, char * dest)
+void Util_strcpy(char * dest, char * string)
 {
 	if (strlen(string) > strlen(dest))
 	{
-		strncpy(dest, string, sizeof(*dest-1));
+		strncpy(dest, string, sizeof(dest)-1);
 		dest[strlen(dest)] = '\0';
 	}
 	else

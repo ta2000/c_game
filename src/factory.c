@@ -12,6 +12,8 @@ void Factory_init(struct Factory * self)
 {
     GameObject_init( &(self->base) );
 	
+	self->nextAvailableProduct = 0;
+
 	// Clear out products array
 	memset(self->products, 0, sizeof(self->products));
 	// Clear out costs array

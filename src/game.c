@@ -18,13 +18,17 @@ void Game_create(struct Game * self)
 {
     self->running = 1;
 
-	self->level = FACTION;
+	// Index of first unloaded player struct
+    self->nextAvailablePlayer = 0;
+
+	// For reading from file
+	self->level = NONE;
 
     // Init all players in pool
     int i;
     for (i = 0; i < sizeof(self->players)/sizeof(self->players[0]); i++)
     {
-        Player_create( &(self->players[i]), 300 );
+        Player_create( &(self->players[i]) );
     }
 }
 
@@ -56,12 +60,11 @@ _Bool Game_readData(struct Game * self)
 		return 0;
 	}
 	
-	char line[100] = {0};
-	while(fgets(line, 100, file) != NULL)
+	char line[128] = {0};
+	while(fgets(line, 128, file) != NULL)
 	{
 		Game_parseLine(self, line);
 		memset(&line[0], '\0', sizeof(line));
-		sleep(2);
 	}
 
 	fclose(file);
@@ -71,12 +74,12 @@ _Bool Game_readData(struct Game * self)
 
 void Game_parseLine(struct Game * self, char * line)
 {
-	char key[100] = {'\0'};
-	char value[100] = {'\0'};
+	char key[128] = {'\0'};
+	char value[128] = {'\0'};
 	unsigned char counter = 0;
 	_Bool writeTo = 0;
 
-	char lineNew[100] = {'\0'};
+	char lineNew[128] = {'\0'};
 
 	// Remove quotes, spaces, tabs, etc.
 	int i, j=0; _Bool inQuotes = 0;
@@ -132,25 +135,30 @@ void Game_parseLine(struct Game * self, char * line)
 		counter++;
 	}
 
-	key[99] = '\0';
-	value[99] = '\0';
+	key[127] = '\0';
+	value[127] = '\0';
 
-	Game_loadData(self, key, value, &self->players[0]);
+	Game_loadData(self, key, value);
 }
 
-void Game_loadData(struct Game * self, char * key, char * value, struct Player * playerLoading)
+void Game_loadData(struct Game * self, char * key, char * value)
 {
-	printf("=== Level: %d ===\n", self->level);
-
-	printf("Key - %s\n", key);
-	printf("Value - %s\n", value);
-
+	// Get next uninitialized player
+	struct Player * playerLoading;
+	playerLoading = &self->players[self->nextAvailablePlayer];
+	// Get next uninitialized factory
 	struct Factory * factoryLoading;
-	factoryLoading = &playerLoading->factorypool.factories[0];
-	
+	factoryLoading = &playerLoading->factorypool.factories[playerLoading->factorypool.nextAvailableFactory];
+	// Get next uninitialized factory product
 	struct Unit * unitLoading;
-	unitLoading = &factoryLoading->products[0];
+	unitLoading = &factoryLoading->products[factoryLoading->nextAvailableProduct];
 
+	// Start above faction level
+	if (self->level == NONE)
+	{
+		if (strcmp(key, "faction") == 0)
+			self->level = FACTION;
+	}
 	// Set faction data
 	if (self->level == FACTION)
 	{
@@ -164,6 +172,12 @@ void Game_loadData(struct Game * self, char * key, char * value, struct Player *
 		{
 			self->level = FACTORY;
 		}
+		// Up a level
+		else if (strcmp(key, "}") == 0)
+		{
+			self->level = NONE;
+			self->nextAvailablePlayer++;
+		}
 	}
 	// Set factory data
 	else if (self->level == FACTORY)
@@ -171,7 +185,7 @@ void Game_loadData(struct Game * self, char * key, char * value, struct Player *
 		// Name
 		if (strcmp(key, "name") == 0)
 		{
-			Util_strcpy(factoryLoading->name, value);
+			strcpy(factoryLoading->name, value);
 		}
 		// Cost
 		else if (strcmp(key, "cost") == 0)
@@ -192,6 +206,7 @@ void Game_loadData(struct Game * self, char * key, char * value, struct Player *
 		else if (strcmp(key, "}") == 0)
 		{
 			self->level = FACTION;
+			playerLoading->factorypool.nextAvailableFactory++;
 		}
 	}
 	// Set factory products data
@@ -243,6 +258,7 @@ void Game_loadData(struct Game * self, char * key, char * value, struct Player *
 		else if (strcmp(key, "}") == 0)
 		{
 			self->level = PRODUCTS;
+			factoryLoading->nextAvailableProduct++;
 		}
 	}
 }

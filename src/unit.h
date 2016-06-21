@@ -19,13 +19,7 @@ void Unit_init(struct Unit * self);
 // Load data from factory preset
 void Unit_loadData(
 	struct Unit * self,
-	char * name,
-	int maxHp,
-	int maxVelocity,
-	int damage,
-	int range,
-	unsigned char firerate,
-	unsigned char shieldRadius
+	struct Unit * parent
 );
 
 // Initialize remaining properties of unit

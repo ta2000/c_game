@@ -5,6 +5,6 @@
 int Util_parse(char * string, long min, long max);
 
 // Copy one string to another and prevent overflow
-void Util_strcpy(char * string, char * dest);
+void Util_strcpy(char * dest, char * string);
 
 #endif

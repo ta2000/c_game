@@ -23,13 +23,7 @@ _Bool Unitpool_create(struct Unitpool * self, float x, float y, struct Unit * pa
             Unit_create( &(self->units[i]), x, y);
 			Unit_loadData(
 				&(self->units[i]),
-				parent->name,
-				parent->base.maxHp,
-				parent->maxVelocity,
-				parent->damage,
-				parent->range,
-				parent->firerate,
-				parent->shieldRadius
+				parent
 			);
 			return 1;
         }

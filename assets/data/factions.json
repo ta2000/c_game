@@ -1,5 +1,6 @@
 {
-	"Humans": {
+	"faction": {
+		"name":"Humans",
 		"metal":45,
 		"factory": {
 			"name":"Infantry Factory",

@@ -29,7 +29,7 @@ void Player_placeFactory(struct Player * self, float x, float y, struct Factory 
 	// Abort and show message if not enough metal
 	if (self->metal < parent->cost)
 	{
-		printf("Need %d more metal for %s\n",
+		printf("Need %d more metal for %s.\n",
 			(parent->cost - self->metal),
 			parent->name
 		);

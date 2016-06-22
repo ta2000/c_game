@@ -33,4 +33,8 @@ void Game_parseLine(struct Game * self, char * line);
 // Set values of players using key/value
 void Game_loadData(struct Game * self, char * key, char * value);
 
+void loadFactionData(char * key, char * value, struct Player * playerLoading);
+void loadFactoryData(char * key, char * value, struct Factory * factoryLoading);
+void loadUnitData(char * key, char * value, struct Unit * unitLoading, struct Factory * factoryLoading);
+
 #endif

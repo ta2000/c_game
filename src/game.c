@@ -123,20 +123,17 @@ void Game_parseLine(struct Game * self, char * line)
 			i++; // Skip colon
 		}
 		
-		if (writeTo == 0)
+		if (writeTo == 0 && counter < sizeof(key)/sizeof(key[0])-1)
 		{
 			key[counter] = lineNew[i];
 		}
-		else if (writeTo == 1)
+		else if (writeTo == 1 && counter < sizeof(value)/sizeof(value[0])-1)
 		{
 			value[counter] = lineNew[i];
 		}
 		
 		counter++;
 	}
-
-	key[127] = '\0';
-	value[127] = '\0';
 
 	Game_loadData(self, key, value);
 }
@@ -156,19 +153,19 @@ void Game_loadData(struct Game * self, char * key, char * value)
 	// Start above faction level
 	if (self->level == NONE)
 	{
+		// Down a level
 		if (strcmp(key, "faction") == 0)
+		{
 			self->level = FACTION;
+		}
 	}
 	// Set faction data
 	if (self->level == FACTION)
 	{
-		// Metal
-		if (strcmp(key, "metal") == 0)
-		{
-			playerLoading->metal = Util_parse(value, INT_MIN, INT_MAX);
-		}
+		loadFactionData(key, value, playerLoading);
+
 		// Down a level
-		else if (strcmp(key, "factory") == 0)
+		if (strcmp(key, "factory") == 0)
 		{
 			self->level = FACTORY;
 		}
@@ -182,24 +179,10 @@ void Game_loadData(struct Game * self, char * key, char * value)
 	// Set factory data
 	else if (self->level == FACTORY)
 	{
-		if (strcmp(key, "name") == 0)
-		{
-			strcpy(factoryLoading->name, value);
-		}
-		if (strcmp(key, "hp") == 0)
-		{
-			factoryLoading->base.maxHp = Util_parse(value, 1, INT_MAX);
-		}
-		else if (strcmp(key, "cost") == 0)
-		{
-			factoryLoading->cost = Util_parse(value, INT_MIN, INT_MAX);
-		}
-		else if (strcmp(key, "speed") == 0)
-		{
-			factoryLoading->speed = Util_parse(value, CHAR_MIN, CHAR_MAX);
-		}
+		loadFactoryData(key, value, factoryLoading);
+
 		// Down a level
-		else if (strcmp(key, "products") == 0)
+		if (strcmp(key, "products") == 0)
 		{
 			self->level = PRODUCTS;
 		}
@@ -227,44 +210,82 @@ void Game_loadData(struct Game * self, char * key, char * value)
 	// Set individual unit data
 	else if (self->level == UNIT)
 	{
-		if (strcmp(key, "name") == 0)
-		{
-			Util_strcpy(unitLoading->name, value);
-		}
-		else if (strcmp(key, "hp") == 0)
-		{
-			unitLoading->base.maxHp = Util_parse(value, INT_MIN, INT_MAX);
-		}
-		else if (strcmp(key, "cost") == 0)
-		{
-			// Store cost in factory
-			factoryLoading->costs[factoryLoading->nextUnloadedProduct] = Util_parse(value, INT_MIN, INT_MAX);
-		}
-		else if (strcmp(key, "max-velocity") == 0)
-		{
-			unitLoading->maxVelocity = Util_parse(value, INT_MIN, INT_MAX);
-		}
-		else if (strcmp(key, "damage") == 0)
-		{
-			unitLoading->damage = Util_parse(value, INT_MIN, INT_MAX);
-		}
-		else if (strcmp(key, "firerate") == 0)
-		{
-			unitLoading->firerate = Util_parse(value, 0, UCHAR_MAX);
-		}
-		else if (strcmp(key, "range") == 0)
-		{
-			unitLoading->range = Util_parse(value, INT_MIN, INT_MAX);
-		}
-		else if (strcmp(key, "shield-radius") == 0)
-		{
-			unitLoading->shieldRadius = Util_parse(value, 0, UCHAR_MAX);
-		}
+		loadUnitData(key, value, unitLoading, factoryLoading);
+
 		// Up a level
-		else if (strcmp(key, "}") == 0)
+		if (strcmp(key, "}") == 0)
 		{
 			self->level = PRODUCTS;
 			factoryLoading->nextUnloadedProduct++;
 		}
+	}
+}
+
+
+/*********************************
+** Set values using key/value pair
+*********************************/
+
+void loadFactionData(char * key, char * value, struct Player * playerLoading)
+{
+	if (strcmp(key, "metal") == 0)
+	{
+		playerLoading->metal = Util_parse(value, INT_MIN, INT_MAX);
+	}
+}
+
+void loadFactoryData(char * key, char * value, struct Factory * factoryLoading)
+{
+	if (strcmp(key, "name") == 0)
+	{
+		strcpy(factoryLoading->name, value);
+	}
+	else if (strcmp(key, "hp") == 0)
+	{
+		factoryLoading->base.maxHp = Util_parse(value, 1, INT_MAX);
+	}
+	else if (strcmp(key, "cost") == 0)
+	{
+		factoryLoading->cost = Util_parse(value, INT_MIN, INT_MAX);
+	}
+	else if (strcmp(key, "speed") == 0)
+	{
+		factoryLoading->speed = Util_parse(value, CHAR_MIN, CHAR_MAX);
+	}
+}
+
+void loadUnitData(char * key, char * value, struct Unit * unitLoading, struct Factory * factoryLoading)
+{
+	if (strcmp(key, "name") == 0)
+	{
+		Util_strcpy(unitLoading->name, value);
+	}
+	else if (strcmp(key, "hp") == 0)
+	{
+		unitLoading->base.maxHp = Util_parse(value, INT_MIN, INT_MAX);
+	}
+	else if (strcmp(key, "cost") == 0)
+	{
+		factoryLoading->costs[factoryLoading->nextUnloadedProduct] = Util_parse(value, INT_MIN, INT_MAX);
+	}
+	else if (strcmp(key, "max-velocity") == 0)
+	{
+		unitLoading->maxVelocity = Util_parse(value, INT_MIN, INT_MAX);
+	}
+	else if (strcmp(key, "damage") == 0)
+	{
+		unitLoading->damage = Util_parse(value, INT_MIN, INT_MAX);
+	}
+	else if (strcmp(key, "firerate") == 0)
+	{
+		unitLoading->firerate = Util_parse(value, 0, UCHAR_MAX);
+	}
+	else if (strcmp(key, "range") == 0)
+	{
+		unitLoading->range = Util_parse(value, INT_MIN, INT_MAX);
+	}
+	else if (strcmp(key, "shield-radius") == 0)
+	{
+		unitLoading->shieldRadius = Util_parse(value, 0, UCHAR_MAX);
 	}
 }

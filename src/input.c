@@ -22,7 +22,7 @@ void handleInput(struct Player * player)
 	
 	if (key == 'f')
 	{
-		Player_placeFactory(player, 16, 17, &(player->factoryTypes[0]));
+		Player_placeFactory(player, 16, 17, &(player->factoryTypes[1]));
 	}
 	else if (key == 'u')
 	{
@@ -34,5 +34,9 @@ void handleInput(struct Player * player)
 		{
 			printf("No factories selected.\n");
 		}
+	}
+	else if (key == 'm')
+	{
+		player->metal+=100;
 	}
 }

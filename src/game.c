@@ -173,7 +173,11 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		else if (strcmp(key, "}") == 0)
 		{
 			self->level = NONE;
-			self->nextUnloadedPlayer++;
+			// Add to nextUnloadedPlayer if less than array length
+			if (self->nextUnloadedPlayer+1 < sizeof(self->players)/sizeof(self->players[0]))
+			{
+				self->nextUnloadedPlayer++;
+			}
 		}
 	}
 	// Set factory data
@@ -190,7 +194,11 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		else if (strcmp(key, "}") == 0)
 		{
 			self->level = FACTION;
-			playerLoading->nextUnloadedFactory++;
+			// Add to nextUnloadedFactory if less than array length
+			if (playerLoading->nextUnloadedFactory+1 < sizeof(playerLoading->factoryTypes)/sizeof(playerLoading->factoryTypes[0]))
+			{
+				playerLoading->nextUnloadedFactory++;
+			}
 		}
 	}
 	// Set factory products data
@@ -216,7 +224,11 @@ void Game_loadData(struct Game * self, char * key, char * value)
 		if (strcmp(key, "}") == 0)
 		{
 			self->level = PRODUCTS;
-			factoryLoading->nextUnloadedProduct++;
+			// Add to nextUnloadedProduct if less than array length
+			if (factoryLoading->nextUnloadedProduct+1 < sizeof(factoryLoading->products)/sizeof(factoryLoading->products[0]))
+			{
+				factoryLoading->nextUnloadedProduct++;
+			}
 		}
 	}
 }

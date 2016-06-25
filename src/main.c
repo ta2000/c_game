@@ -11,19 +11,15 @@
 
 #include "game.h"
 
-#define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0]))
-
 static struct Game game;
 
 int main(int argc, char *argv[])
 {
-	/*
-	printf("Sizeof struct game is %zu bytes.\n", sizeof(struct Game));
-	printf("Sizeof struct unit is %zu bytes.\n", sizeof(struct Unit));
-	*/
+	
+	//printf("Sizeof struct game is %zu bytes.\n", sizeof(game));
 
     Game_create(&game);
-	Game_readData(&game);
+	Game_loadData(&game);
 	Game_run(&game);
 
     return 0;

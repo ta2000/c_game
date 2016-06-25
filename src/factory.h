@@ -12,7 +12,6 @@ struct Factory
 	struct Unit products[10];
 	int costs[10];
 	unsigned char speed, progress;
-	int nextUnloadedProduct;
 };
 
 // Initialize properties used by pool

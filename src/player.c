@@ -10,7 +10,6 @@
 
 void Player_create(struct Player * self)
 {
-	self->nextUnloadedFactory = 0;
     // Init all units in pool
     Unitpool_init( &(self->unitpool) );
     // Init all factories in pool

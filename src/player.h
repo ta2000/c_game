@@ -6,7 +6,6 @@ struct Player
     int metal;
     struct Unitpool unitpool;
 	struct Factory factoryTypes[6];
-	int nextUnloadedFactory;
     struct Factorypool factorypool;
 };
 

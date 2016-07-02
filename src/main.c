@@ -19,8 +19,10 @@ int main(int argc, char *argv[])
 	//printf("Sizeof struct game is %zu bytes.\n", sizeof(game));
 
     Game_create(&game);
-	Game_loadData(&game);
-	Game_run(&game);
+	if (Game_loadData(&game) == 1)
+	{
+		Game_run(&game);
+	}
 
     return 0;
 }

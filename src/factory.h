@@ -30,6 +30,10 @@ void Factory_create(
 void Factory_update(struct Factory * self);
 
 // Create a unit, subtract resources
-void Factory_produceUnit(struct Factory * self, int selectedUnit, struct Player * owner);
+void Factory_produceUnit(
+	struct Factory * self,
+	int selectedUnit,
+	struct Player * owner
+);
 
 #endif

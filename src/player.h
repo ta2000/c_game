@@ -16,6 +16,10 @@ void Player_create(struct Player * self);
 void Player_update(struct Player * self);
 
 // Attempt to create a factory, checking for issues
-void Player_placeFactory(struct Player * self, float x, float y, struct Factory * parent);
+void Player_placeFactory(
+	struct Player * self,
+	float x, float y,
+	struct Factory * parent
+);
 
 #endif

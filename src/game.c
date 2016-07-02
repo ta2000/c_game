@@ -5,7 +5,6 @@
 #include <limits.h>
 #include <malloc.h>
 
-#include "util.h"
 #include "gameobject.h"
 #include "unit.h"
 #include "unitpool.h"
@@ -49,15 +48,32 @@ _Bool Game_loadData(struct Game * self)
 {
 	FILE *file = fopen("assets/data/data.dat", "r");
 	
+	// File does not exist
 	if (file == NULL)
 	{
-		printf("Could not find file.\n");
+		printf("Could not find data file. Exiting.\n");
 		fclose(file);
 		return 0;
 	}
 
+	// Read file
 	size_t bytes_read;
-	bytes_read = fread(self, sizeof(*self), 1, file);
+	bytes_read = fread(self, 1, sizeof(*self), file);
+
+	// Incorrect file signature
+	/*
+	if ()
+	{
+	}
+	*/
+
+	// File size is wrong
+	if (bytes_read != sizeof(*self))
+	{
+		printf("Data file corrupted. Exiting.\n");
+		fclose(file);
+		return 0;
+	}
 
 	fclose(file);
 

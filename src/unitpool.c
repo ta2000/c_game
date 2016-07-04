@@ -64,3 +64,13 @@ void Unitpool_serialize(struct Unitpool * self, unsigned char * buffer, int * in
 		Unit_serialize( &(self->units[i]), buffer, index );
 	}
 }
+
+void Unitpool_deserialize(struct Unitpool * self, unsigned char * buffer, int * index)
+{
+	// Units
+	int i;
+	for (i=0; i<sizeof(self->units)/sizeof(self->units[0]); i++)
+	{
+		Unit_deserialize( &(self->units[i]), buffer, index );
+	}
+}

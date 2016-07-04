@@ -47,13 +47,29 @@ void Unit_serialize(struct Unit * self, unsigned char * buffer, int * index)
 	// Base
 	GameObject_serialize( &(self->base), buffer, index );
 	// Name
-	serialize_string( self->name, sizeof(self->name), buffer, index );
+	serialize_string(self->name, sizeof(self->name), buffer, index);
 	// Max velocity
 	serialize_int(self->maxVelocity, buffer, index);
 	// Damage
 	serialize_int(self->damage, buffer, index);
 	// Firerate
-	serialize_char( self->firerate, buffer, index );
-	// Shield Radius 
-	serialize_char( self->shieldRadius, buffer, index );
+	serialize_char(self->firerate, buffer, index);
+	// Shield Radius
+	serialize_char(self->shieldRadius, buffer, index);
+}
+
+void Unit_deserialize(struct Unit * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_deserialize( &(self->base), buffer, index );
+	// Name
+	deserialize_string(self->name, sizeof(self->name), buffer, index);
+	// Max velocity
+	deserialize_int( &(self->maxVelocity), buffer, index );
+	// Damage
+	deserialize_int( &(self->damage), buffer, index );
+	// Firerate
+	deserialize_uchar( &(self->firerate), buffer, index);
+	// Shield Radius
+	deserialize_uchar( &(self->shieldRadius), buffer, index);
 }

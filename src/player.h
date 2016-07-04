@@ -29,4 +29,11 @@ void Player_serialize(
 	int * index
 );
 
+// Deserialize player object
+void Player_deserialize(
+	struct Player * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

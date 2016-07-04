@@ -66,3 +66,13 @@ void Factorypool_serialize(struct Factorypool * self, unsigned char * buffer, in
 		Factory_serialize( &(self->factories[i]), buffer, index );
 	}
 }
+
+void Factorypool_deserialize(struct Factorypool * self, unsigned char * buffer, int * index)
+{
+	// Factories
+	int i;
+	for (i=0; i<sizeof(self->factories)/sizeof(self->factories[0]); i++)
+	{
+		Factory_deserialize( &(self->factories[i]), buffer, index );
+	}
+}

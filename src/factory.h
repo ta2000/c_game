@@ -46,4 +46,11 @@ void Factory_serialize(
 	int * index
 );
 
+// Deserialize factory object
+void Factory_deserialize(
+	struct Factory * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

@@ -26,3 +26,9 @@ void GameObject_serialize(struct GameObject * self, unsigned char * buffer, int 
 	// Max HP
 	serialize_int(self->maxHp, buffer, index);
 }
+
+void GameObject_deserialize(struct GameObject * self, unsigned char * buffer, int * index)
+{
+	// Max HP
+	deserialize_int( &(self->maxHp), buffer, index );
+}

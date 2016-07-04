@@ -57,34 +57,18 @@ _Bool Game_loadData(struct Game * self)
 	}
 
 	// Read file
-	size_t bytes_read;
-	bytes_read = fread(self, 1, sizeof(*self), file);
+	fseek(file, 0L, SEEK_END);
+	size_t size = ftell(file);
+	rewind(file);
 
-	// Incorrect file signature
-	/*
-	if ()
-	{
-	}
-	*/
-
-	// File size is wrong
-	if (bytes_read != sizeof(*self))
-	{
-		printf("Data file corrupted. Exiting.\n");
-		fclose(file);
-		return 0;
-	}
-
-	fclose(file);
-
-	unsigned char * buffer = calloc(10000, sizeof(*buffer));
+	unsigned char * buffer = malloc(size);
+	memset(buffer, 0, size);
 	int index = 0;
-	Game_serialize(self, buffer, &index);
 
-	FILE *serialized = fopen("assets/data/newdata.dat", "w");
-	fwrite(buffer, index, 1, serialized);
-	fclose(serialized);
-	
+	size_t bytesRead;
+	bytesRead = fread(buffer, size, 1, file);
+
+	Game_deserialize(self, buffer, &index);
 	free(buffer);
 
 	return 1;
@@ -96,5 +80,14 @@ void Game_serialize(struct Game * self, unsigned char * buffer, int * index)
 	for (i=0; i<sizeof(self->players)/sizeof(self->players[0]); i++)
 	{
 		Player_serialize( &(self->players[i]), buffer, index );
+	}
+}
+
+void Game_deserialize(struct Game * self, unsigned char * buffer, int * index)
+{
+	int i;
+	for (i=0; i<sizeof(self->players)/sizeof(self->players[0]); i++)
+	{
+		Player_deserialize( &(self->players[i]), buffer, index );
 	}
 }

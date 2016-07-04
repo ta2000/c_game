@@ -97,7 +97,7 @@ void Factory_serialize(struct Factory * self, unsigned char * buffer, int * inde
 	// Base
 	GameObject_serialize( &(self->base), buffer, index );
 	// Name
-	serialize_string( self->name, sizeof(self->name), buffer, index );
+	serialize_string(self->name, sizeof(self->name), buffer, index);
 	// Cost
 	serialize_int(self->cost, buffer, index);
 	// Products
@@ -109,8 +109,31 @@ void Factory_serialize(struct Factory * self, unsigned char * buffer, int * inde
 	// Costs of products
 	for (i=0; i<sizeof(self->costs)/sizeof(self->costs[0]); i++)
 	{
-		serialize_int( self->costs[i], buffer, index );
+		serialize_int(self->costs[i], buffer, index);
 	}
 	// Speed
-	serialize_char( self->speed, buffer, index );
+	serialize_char(self->speed, buffer, index);
+}
+
+void Factory_deserialize(struct Factory * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_deserialize( &(self->base), buffer, index );
+	// Name
+	deserialize_string(self->name, sizeof(self->name), buffer, index);
+	// Cost
+	deserialize_int( &(self->cost), buffer, index );
+	// Products
+	int i;
+	for (i=0; i<sizeof(self->products)/sizeof(self->products[0]); i++)
+	{
+		Unit_deserialize( &(self->products[i]), buffer, index );
+	}
+	// Costs of products
+	for (i=0; i<sizeof(self->costs)/sizeof(self->costs[0]); i++)
+	{
+		deserialize_int( &(self->costs[i]), buffer, index );
+	}
+	// Speed
+	deserialize_uchar( &(self->speed), buffer, index );
 }

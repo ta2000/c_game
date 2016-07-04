@@ -23,4 +23,11 @@ void Game_serialize(
 	int * index
 );
 
+// Deserialize game object
+void Game_deserialize(
+	struct Game * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

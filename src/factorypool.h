@@ -30,4 +30,11 @@ void Factorypool_serialize(
 	int * index
 );
 
+// Deserialize factorypool object
+void Factorypool_deserialize(
+	struct Factorypool * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

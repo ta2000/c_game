@@ -30,4 +30,11 @@ void Unitpool_serialize(
 	int * index
 );
 
+// Deserialize unitpool object
+void Unitpool_deserialize(
+	struct Unitpool * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

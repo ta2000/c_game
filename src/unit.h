@@ -38,4 +38,11 @@ void Unit_serialize(
 	int * index
 );
 
+// Deserialize unit object
+void Unit_deserialize(
+	struct Unit * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

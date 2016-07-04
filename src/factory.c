@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "serialize.h"
 #include "gameobject.h"
 #include "unit.h"
 #include "unitpool.h"
@@ -89,4 +90,27 @@ void Factory_produceUnit(struct Factory * self, int selectedUnit, struct Player 
 void Factory_update(struct Factory * self)
 {
     printf("Updating %s [%.2f,%.2f].\n", self->name, self->base.x, self->base.y);
+}
+
+void Factory_serialize(struct Factory * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_serialize( &(self->base), buffer, index );
+	// Name
+	serialize_string( self->name, sizeof(self->name), buffer, index );
+	// Cost
+	serialize_int(self->cost, buffer, index);
+	// Products
+	int i;
+	for (i=0; i<sizeof(self->products)/sizeof(self->products[0]); i++)
+	{
+		Unit_serialize( &(self->products[i]), buffer, index );
+	}
+	// Costs of products
+	for (i=0; i<sizeof(self->costs)/sizeof(self->costs[0]); i++)
+	{
+		serialize_int( self->costs[i], buffer, index );
+	}
+	// Speed
+	serialize_char( self->speed, buffer, index );
 }

@@ -31,4 +31,11 @@ void Unit_create(
 // Update the unit
 void Unit_update(struct Unit * self);
 
+// Serialize unit object
+void Unit_serialize(
+	struct Unit * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

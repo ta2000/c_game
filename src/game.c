@@ -77,5 +77,24 @@ _Bool Game_loadData(struct Game * self)
 
 	fclose(file);
 
+	unsigned char * buffer = calloc(10000, sizeof(*buffer));
+	int index = 0;
+	Game_serialize(self, buffer, &index);
+
+	FILE *serialized = fopen("assets/data/newdata.dat", "w");
+	fwrite(buffer, index, 1, serialized);
+	fclose(serialized);
+	
+	free(buffer);
+
 	return 1;
+}
+
+void Game_serialize(struct Game * self, unsigned char * buffer, int * index)
+{
+	int i;
+	for (i=0; i<sizeof(self->players)/sizeof(self->players[0]); i++)
+	{
+		Player_serialize( &(self->players[i]), buffer, index );
+	}
 }

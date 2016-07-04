@@ -18,7 +18,10 @@ struct Factory
 void Factory_init(struct Factory * self);
 
 // Load data from parent factory
-void Factory_loadData(struct Factory * self, struct Factory * parent);
+void Factory_loadData(
+	struct Factory * self,
+	struct Factory * parent
+);
 
 // Initialize remaining properties of factory
 void Factory_create(
@@ -34,6 +37,13 @@ void Factory_produceUnit(
 	struct Factory * self,
 	int selectedUnit,
 	struct Player * owner
+);
+
+// Serialize factory object
+void Factory_serialize(
+	struct Factory * self,
+	unsigned char * buffer,
+	int * index
 );
 
 #endif

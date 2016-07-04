@@ -22,4 +22,11 @@ void Player_placeFactory(
 	struct Factory * parent
 );
 
+// Serialize player object
+void Player_serialize(
+	struct Player * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

@@ -56,3 +56,13 @@ struct Factory* Factorypool_getNextFactory(struct Factorypool * self)
     }
     return NULL;
 }
+
+void Factorypool_serialize(struct Factorypool * self, unsigned char * buffer, int * index)
+{
+	// Factories
+	int i;
+	for (i=0; i<sizeof(self->factories)/sizeof(self->factories[0]); i++)
+	{
+		Factory_serialize( &(self->factories[i]), buffer, index );
+	}
+}

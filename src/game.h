@@ -16,4 +16,11 @@ void Game_run(struct Game * self);
 // Load game state
 _Bool Game_loadData(struct Game * self);
 
+// Serialize game object
+void Game_serialize(
+	struct Game * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

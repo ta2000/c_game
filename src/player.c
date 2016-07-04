@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "serialize.h"
 #include "gameobject.h"
 #include "unit.h"
 #include "unitpool.h"
@@ -53,4 +54,20 @@ void Player_placeFactory(struct Player * self, float x, float y, struct Factory 
 	{
 		printf("Factory limit reached.\n");
 	}
+}
+
+void Player_serialize(struct Player * self, unsigned char * buffer, int * index)
+{
+	// Metal
+	serialize_int(self->metal, buffer, index);
+	// Unitpool
+	Unitpool_serialize( &(self->unitpool), buffer, index );
+	// Factory types
+	int i;
+	for (i=0; i<sizeof(self->factoryTypes)/sizeof(self->factoryTypes[0]); i++)
+	{
+		Factory_serialize( &(self->factoryTypes[i]), buffer, index );
+	}
+	// Factorypool
+	Factorypool_serialize( &(self->factorypool), buffer, index );
 }

@@ -23,4 +23,11 @@ void Unitpool_update(struct Unitpool * self);
 // Return address of next !inUse unit
 struct Unit* Unitpool_getNextUnit(struct Unitpool * self);
 
+// Serialize unitpool object
+void Unitpool_serialize(
+	struct Unitpool * self,
+	unsigned char * buffer,
+	int * index
+);
+
 #endif

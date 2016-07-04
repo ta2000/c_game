@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "serialize.h"
 #include "gameobject.h"
 #include "unit.h"
 
@@ -39,4 +40,20 @@ void Unit_create(
 void Unit_update(struct Unit * self)
 {
     printf("Updating %s [%.2f,%.2f]\n", self->name, self->base.x, self->base.y);
+}
+
+void Unit_serialize(struct Unit * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_serialize( &(self->base), buffer, index );
+	// Name
+	serialize_string( self->name, sizeof(self->name), buffer, index );
+	// Max velocity
+	serialize_int(self->maxVelocity, buffer, index);
+	// Damage
+	serialize_int(self->damage, buffer, index);
+	// Firerate
+	serialize_char( self->firerate, buffer, index );
+	// Shield Radius 
+	serialize_char( self->shieldRadius, buffer, index );
 }

@@ -1,10 +1,13 @@
 #ifndef INPUT_H_
 #define INPUT_H_
 
+// Forward declaration of Game
+struct Game;
+
 // Checks for input from windowing system
 char getInput();
 
-// Process input on player's selected units
-void handleInput(struct Player * player);
+// Process input
+void handleInput(struct Game * game);
 
 #endif

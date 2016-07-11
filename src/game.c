@@ -10,8 +10,8 @@
 #include "unitpool.h"
 #include "factory.h"
 #include "factorypool.h"
-#include "input.h"
 #include "player.h"
+#include "input.h"
 #include "game.h"
 
 void Game_create(struct Game * self)
@@ -38,6 +38,7 @@ void Game_run(struct Game * self)
             printf("=== Player %d - Metal: %d ===\n", i+1, self->players[i].metal);
             Player_update( &(self->players[i]) );
         }
+		handleInput(self);
         // Newline before next frame
         printf("\n");
         //sleep(2);

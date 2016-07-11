@@ -19,7 +19,6 @@ void Player_create(struct Player * self)
 
 void Player_update(struct Player * self)
 {
-	handleInput(self);
     Unitpool_update( &(self->unitpool) );
     Factorypool_update( &(self->factorypool) );
 }

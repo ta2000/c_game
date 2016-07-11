@@ -5,8 +5,9 @@
 #include "unitpool.h"
 #include "factory.h"
 #include "factorypool.h"
-#include "input.h"
 #include "player.h"
+#include "game.h"
+#include "input.h"
 
 char getInput()
 {
@@ -16,9 +17,13 @@ char getInput()
 	return key;
 }
 
-void handleInput(struct Player * player)
+void handleInput(struct Game * game)
 {
 	char key = getInput();
+
+	// Use temporary pointer to first player
+	struct Player * player;
+	player = &(game->players[0]);
 	
 	if (key == 'f')
 	{
@@ -28,7 +33,7 @@ void handleInput(struct Player * player)
 	{
 		if (player->factorypool.factories[0].base.selected)
 		{
-			Factory_produceUnit(&player->factorypool.factories[0], 1, player);
+			Factory_produceUnit(&(player->factorypool.factories[0]), 1, player);
 		}
 		else
 		{

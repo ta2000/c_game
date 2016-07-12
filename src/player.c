@@ -55,34 +55,46 @@ void Player_placeFactory(struct Player * self, float x, float y, struct Factory 
 	}
 }
 
-void Player_serialize(struct Player * self, unsigned char * buffer, int * index)
+void Player_serializeData(struct Player * self, unsigned char * buffer, int * index)
 {
 	// Metal
 	serialize_int(self->metal, buffer, index);
-	// Unitpool
-	Unitpool_serialize( &(self->unitpool), buffer, index );
 	// Factory types
 	int i;
 	for (i=0; i<sizeof(self->factoryTypes)/sizeof(self->factoryTypes[0]); i++)
 	{
 		Factory_serialize( &(self->factoryTypes[i]), buffer, index );
 	}
-	// Factorypool
-	Factorypool_serialize( &(self->factorypool), buffer, index );
 }
 
-void Player_deserialize(struct Player * self, unsigned char * buffer, int * index)
+void Player_deserializeData(struct Player * self, unsigned char * buffer, int * index)
 {
 	// Metal
 	deserialize_int( &(self->metal), buffer, index );
-	// Unitpool
-	Unitpool_deserialize( &(self->unitpool), buffer, index );
 	// Factory types
 	int i;
 	for (i=0; i<sizeof(self->factoryTypes)/sizeof(self->factoryTypes[0]); i++)
 	{
 		Factory_deserialize( &(self->factoryTypes[i]), buffer, index );
 	}
+}
+
+void Player_serializeState(struct Player * self, unsigned char * buffer, int * index)
+{
+	// Metal
+	serialize_int(self->metal, buffer, index);
+	// Unitpool
+	Unitpool_serialize( &(self->unitpool), buffer, index );
+	// Factorypool
+	Factorypool_serialize( &(self->factorypool), buffer, index );
+}
+
+void Player_deserializeState(struct Player * self, unsigned char * buffer, int * index)
+{
+	// Metal
+	deserialize_int( &(self->metal), buffer, index );
+	// Unitpool
+	Unitpool_deserialize( &(self->unitpool), buffer, index );
 	// Factorypool
 	Factorypool_deserialize( &(self->factorypool), buffer, index );
 }

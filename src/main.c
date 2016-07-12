@@ -20,8 +20,7 @@ int main(int argc, char *argv[])
 	//printf("Sizeof struct game is %zu bytes.\n", sizeof(game));
 
     Game_create(&game);
-	
-	if (Game_loadData(&game) == 1)
+	if (Game_deserializeData(&game) == 1)
 	{
 		Game_run(&game);
 	}

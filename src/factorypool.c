@@ -23,7 +23,7 @@ _Bool Factorypool_create(struct Factorypool * self, float x, float y, struct Fac
 	if (factory != NULL)
     {
 		Factory_create(factory, x, y);
-		Factory_loadData(
+		Factory_loadAttributes(
 			factory,
 			parent
 		);

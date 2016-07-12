@@ -22,15 +22,27 @@ void Player_placeFactory(
 	struct Factory * parent
 );
 
-// Serialize player object
-void Player_serialize(
+// Save player data
+void Player_serializeData(
+	struct Player * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load player data
+void Player_deserializeData(
 	struct Player * self,
 	unsigned char * buffer,
 	int * index
 );
 
-// Deserialize player object
-void Player_deserialize(
+// Save player state
+void Player_serializeState(
+	struct Player * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load player state
+void Player_deserializeState(
 	struct Player * self,
 	unsigned char * buffer,
 	int * index

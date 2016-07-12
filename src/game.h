@@ -13,21 +13,14 @@ void Game_create(struct Game * self);
 // Begin game loop
 void Game_run(struct Game * self);
 
-// Load game state
-_Bool Game_loadData(struct Game * self);
+// Save game data
+_Bool Game_serializeData(struct Game * self);
+// Load game data
+_Bool Game_deserializeData(struct Game * self);
 
-// Serialize game object
-void Game_serialize(
-	struct Game * self,
-	unsigned char * buffer,
-	int * index
-);
-
-// Deserialize game object
-void Game_deserialize(
-	struct Game * self,
-	unsigned char * buffer,
-	int * index
-);
+// Save game state to file
+_Bool Game_serializeState(struct Game * self);
+// Load game state from file
+_Bool Game_deserializeState(struct Game * self);
 
 #endif

@@ -16,8 +16,8 @@ struct Unit
 // Initialize properties used by pool
 void Unit_init(struct Unit * self);
 
-// Load data from factory preset
-void Unit_loadData(
+// Load attributes from parent unit
+void Unit_loadAttributes(
 	struct Unit * self,
 	struct Unit * parent
 );

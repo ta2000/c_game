@@ -12,7 +12,7 @@ void Unit_init(struct Unit * self)
 	memset(self->name, '\0', sizeof(self->name));
 }
 
-void Unit_loadData(
+void Unit_loadAttributes(
 	struct Unit * self,
 	struct Unit * parent)
 {

@@ -19,7 +19,7 @@ void Factory_init(struct Factory * self)
 	memset(self->costs, 0, sizeof(self->costs));
 }
 
-void Factory_loadData(
+void Factory_loadAttributes(
 	struct Factory * self,
 	struct Factory * parent)
 {

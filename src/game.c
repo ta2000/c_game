@@ -5,6 +5,7 @@
 #include <limits.h>
 #include <malloc.h>
 
+#include "filemanager.h"
 #include "gameobject.h"
 #include "unit.h"
 #include "unitpool.h"
@@ -45,50 +46,103 @@ void Game_run(struct Game * self)
     }
 }
 
-_Bool Game_loadData(struct Game * self)
+_Bool Game_serializeData(struct Game * self)
 {
-	FILE *file = fopen("assets/data/data.dat", "r");
-	
-	// File does not exist
-	if (file == NULL)
-	{
-		printf("Could not find data file. Exiting.\n");
-		fclose(file);
-		return 0;
-	}
+	char * dataFile = "assets/data/data.dat";
+	size_t fileSize = getFileSize(dataFile);
 
-	// Read file
-	fseek(file, 0L, SEEK_END);
-	size_t size = ftell(file);
-	rewind(file);
-
-	unsigned char * buffer = malloc(size);
-	memset(buffer, 0, size);
+	unsigned char * buffer = calloc(1, fileSize);
 	int index = 0;
 
-	size_t bytesRead;
-	bytesRead = fread(buffer, size, 1, file);
+	// Save data from all players
+	int i;
+	for (i=0; i<sizeof(self->players)/sizeof(self->players[0]); i++)
+	{
+		Player_serializeData( &(self->players[i]), buffer, &index );
+	}
 
-	Game_deserialize(self, buffer, &index);
+	// Write buffer into file
+	writeFile(dataFile, buffer, fileSize);
+
 	free(buffer);
 
 	return 1;
 }
 
-void Game_serialize(struct Game * self, unsigned char * buffer, int * index)
+_Bool Game_deserializeData(struct Game * self)
 {
+	char * dataFile = "assets/data/data.dat";
+	size_t fileSize = getFileSize(dataFile);
+	if (fileSize == 0)
+	{
+		fprintf(stderr, "File size could not be determined\n");
+		return 0;
+	}
+	
+	unsigned char * buffer = calloc(1, fileSize);
+	int index = 0;
+
+	// Read file into buffer
+	readFile(dataFile, buffer, fileSize);
+
+	// Load data for all players
 	int i;
 	for (i=0; i<sizeof(self->players)/sizeof(self->players[0]); i++)
 	{
-		Player_serialize( &(self->players[i]), buffer, index );
+		Player_deserializeData( &(self->players[i]), buffer, &index );
 	}
+
+	free(buffer);
+
+	return 1;
 }
 
-void Game_deserialize(struct Game * self, unsigned char * buffer, int * index)
+_Bool Game_serializeState(struct Game * self)
 {
+	char * saveFile = "assets/savegames/game1.sav";
+	size_t fileSize = getFileSize(saveFile);
+
+	unsigned char * buffer = calloc(1, fileSize);
+	int index = 0;
+
+	// Save data from all players
 	int i;
 	for (i=0; i<sizeof(self->players)/sizeof(self->players[0]); i++)
 	{
-		Player_deserialize( &(self->players[i]), buffer, index );
+		Player_serializeState( &(self->players[i]), buffer, &index );
 	}
+
+	// Write buffer into file
+	writeFile(saveFile, buffer, fileSize);
+
+	free(buffer);
+
+	return 1;
+}
+
+_Bool Game_deserializeState(struct Game * self)
+{
+	char * saveFile = "assets/savegames/game1.sav";
+	size_t fileSize = getFileSize(saveFile);
+	if (fileSize == 0)
+	{
+		return 0;
+	}
+	
+	unsigned char * buffer = calloc(1, fileSize);
+	int index = 0;
+
+	// Read file into buffer
+	readFile(saveFile, buffer, fileSize);
+
+	// Load data for all players
+	int i;
+	for (i=0; i<sizeof(self->players)/sizeof(self->players[0]); i++)
+	{
+		Player_deserializeState( &(self->players[i]), buffer, &index );
+	}
+
+	free(buffer);
+
+	return 1;
 }

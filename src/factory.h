@@ -17,8 +17,8 @@ struct Factory
 // Initialize properties used by pool
 void Factory_init(struct Factory * self);
 
-// Load data from parent factory
-void Factory_loadData(
+// Load attributes from parent factory
+void Factory_loadAttributes(
 	struct Factory * self,
 	struct Factory * parent
 );
@@ -39,14 +39,14 @@ void Factory_produceUnit(
 	struct Player * owner
 );
 
-// Serialize factory object
+// Serialize factory data
 void Factory_serialize(
 	struct Factory * self,
 	unsigned char * buffer,
 	int * index
 );
 
-// Deserialize factory object
+// Deserialize factory data
 void Factory_deserialize(
 	struct Factory * self,
 	unsigned char * buffer,

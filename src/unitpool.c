@@ -21,7 +21,7 @@ _Bool Unitpool_create(struct Unitpool * self, float x, float y, struct Unit * pa
 	if (unit != NULL)
     {
 		Unit_create(unit, x, y);
-		Unit_loadData(
+		Unit_loadAttributes(
 			unit,
 			parent
 		);

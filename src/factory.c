@@ -92,10 +92,33 @@ void Factory_update(struct Factory * self)
     printf("Updating %s [%.2f,%.2f].\n", self->name, self->base.x, self->base.y);
 }
 
+
+void Factory_serializeData(struct Factory * self, unsigned char * buffer, int * index)
+{
+	GameObject_serializeData( &(self->base), buffer, index );
+	Factory_serialize(self, buffer, index);
+}
+
+void Factory_deserializeData(struct Factory * self, unsigned char * buffer, int * index)
+{
+	GameObject_deserializeData( &(self->base), buffer, index );
+	Factory_deserialize(self, buffer, index);
+}
+
+void Factory_serializeState(struct Factory * self, unsigned char * buffer, int * index)
+{	
+	GameObject_serializeState( &(self->base), buffer, index );
+	Factory_serialize(self, buffer, index);
+}
+
+void Factory_deserializeState(struct Factory * self, unsigned char * buffer, int * index)
+{
+	GameObject_deserializeState( &(self->base), buffer, index );
+	Factory_deserialize(self, buffer, index);
+}
+
 void Factory_serialize(struct Factory * self, unsigned char * buffer, int * index)
 {
-	// Base
-	GameObject_serialize( &(self->base), buffer, index );
 	// Name
 	serialize_string(self->name, sizeof(self->name), buffer, index);
 	// Cost
@@ -104,7 +127,7 @@ void Factory_serialize(struct Factory * self, unsigned char * buffer, int * inde
 	int i;
 	for (i=0; i<sizeof(self->products)/sizeof(self->products[0]); i++)
 	{
-		Unit_serialize( &(self->products[i]), buffer, index );
+		Unit_serializeData( &(self->products[i]), buffer, index );
 	}
 	// Costs of products
 	for (i=0; i<sizeof(self->costs)/sizeof(self->costs[0]); i++)
@@ -117,8 +140,6 @@ void Factory_serialize(struct Factory * self, unsigned char * buffer, int * inde
 
 void Factory_deserialize(struct Factory * self, unsigned char * buffer, int * index)
 {
-	// Base
-	GameObject_deserialize( &(self->base), buffer, index );
 	// Name
 	deserialize_string(self->name, sizeof(self->name), buffer, index);
 	// Cost
@@ -127,7 +148,7 @@ void Factory_deserialize(struct Factory * self, unsigned char * buffer, int * in
 	int i;
 	for (i=0; i<sizeof(self->products)/sizeof(self->products[0]); i++)
 	{
-		Unit_deserialize( &(self->products[i]), buffer, index );
+		Unit_deserializeData( &(self->products[i]), buffer, index );
 	}
 	// Costs of products
 	for (i=0; i<sizeof(self->costs)/sizeof(self->costs[0]); i++)

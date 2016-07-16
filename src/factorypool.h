@@ -23,14 +23,14 @@ void Factorypool_update(struct Factorypool * self);
 // Return address of next !inUse factory
 struct Factory* Factorypool_getNextFactory(struct Factorypool * self);
 
-// Serialize factorypool object
+// Serialize state of all factories
 void Factorypool_serialize(
 	struct Factorypool * self,
 	unsigned char * buffer,
 	int * index
 );
 
-// Deserialize factorypool object
+// Deserialize state of all factories
 void Factorypool_deserialize(
 	struct Factorypool * self,
 	unsigned char * buffer,

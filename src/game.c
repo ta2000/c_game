@@ -15,7 +15,7 @@
 #include "input.h"
 #include "game.h"
 
-void Game_create(struct Game * self)
+void Game_init(struct Game * self)
 {
     self->running = 1;
 
@@ -23,7 +23,7 @@ void Game_create(struct Game * self)
     int i;
     for (i = 0; i < sizeof(self->players)/sizeof(self->players[0]); i++)
     {
-        Player_create( &(self->players[i]) );
+        Player_init( &(self->players[i]) );
     }
 }
 
@@ -49,7 +49,7 @@ void Game_run(struct Game * self)
 _Bool Game_serializeData(struct Game * self)
 {
 	char * dataFile = "assets/data/data.dat";
-	size_t fileSize = getFileSize(dataFile);
+	size_t fileSize = 3490;//getFileSize(dataFile);
 
 	unsigned char * buffer = calloc(1, fileSize);
 	int index = 0;
@@ -100,7 +100,7 @@ _Bool Game_deserializeData(struct Game * self)
 _Bool Game_serializeState(struct Game * self)
 {
 	char * saveFile = "assets/savegames/game1.sav";
-	size_t fileSize = getFileSize(saveFile);
+	size_t fileSize = 3000;
 
 	unsigned char * buffer = calloc(1, fileSize);
 	int index = 0;
@@ -126,6 +126,7 @@ _Bool Game_deserializeState(struct Game * self)
 	size_t fileSize = getFileSize(saveFile);
 	if (fileSize == 0)
 	{
+		fprintf(stderr, "Failed to load save :(\n");
 		return 0;
 	}
 	

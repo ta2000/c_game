@@ -12,6 +12,14 @@ void serialize_int(int value, unsigned char * buffer, int * index)
 	buffer[(*index)++] = value;
 }
 
+void serialize_float(float value, unsigned char * buffer, int * index)
+{
+	// Split float into 4 seperate bytes
+	float newVal = value;
+	memcpy(&(buffer[*index]), &newVal, 4);
+	(*index) += 4;
+}
+
 void serialize_char(char value, unsigned char * buffer, int * index)
 {
 	// Copy single char to buffer
@@ -33,6 +41,13 @@ void deserialize_int(int * value, unsigned char * buffer, int * index)
 	(*value) |= (int)buffer[(*index)++] << 16;
 	(*value) |= (int)buffer[(*index)++] << 8;
 	(*value) |= (int)buffer[(*index)++];
+}
+
+void deserialize_float(float * value, unsigned char * buffer, int * index)
+{
+	// Read float from 4 consecutive bytes
+	memcpy(value, &(buffer[*index]), 4);
+	*index += 4;
 }
 
 void deserialize_char(char * value, unsigned char * buffer, int * index)

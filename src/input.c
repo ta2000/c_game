@@ -27,13 +27,13 @@ void handleInput(struct Game * game)
 	
 	if (key == 'f')
 	{
-		Player_placeFactory(player, 16, 17, &(player->factoryTypes[0]));
+		Player_placeFactory(player, 16, 17, &(player->factoryTypes[1]));
 	}
 	else if (key == 'u')
 	{
 		if (player->factorypool.factories[0].base.selected)
 		{
-			Factory_produceUnit(&(player->factorypool.factories[0]), 1, player);
+			Factory_produceUnit(&(player->factorypool.factories[0]), 0, player);
 		}
 		else
 		{
@@ -43,5 +43,16 @@ void handleInput(struct Game * game)
 	else if (key == 'm')
 	{
 		player->metal+=100;
+	}
+	else if (key == 's')
+	{
+		printf("Saving game...\n");
+		Game_serializeState(game);
+	}
+	else if (key == 'l')
+	{
+		printf("Loading saved game...\n");
+		Game_init(game);
+		Game_deserializeState(game);
 	}
 }

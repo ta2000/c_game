@@ -9,8 +9,9 @@
 #include "input.h"
 #include "player.h"
 
-void Player_create(struct Player * self)
+void Player_init(struct Player * self)
 {
+	self->metal = 0;
     // Init all units in pool
     Unitpool_init( &(self->unitpool) );
     // Init all factories in pool
@@ -63,7 +64,7 @@ void Player_serializeData(struct Player * self, unsigned char * buffer, int * in
 	int i;
 	for (i=0; i<sizeof(self->factoryTypes)/sizeof(self->factoryTypes[0]); i++)
 	{
-		Factory_serialize( &(self->factoryTypes[i]), buffer, index );
+		Factory_serializeData( &(self->factoryTypes[i]), buffer, index );
 	}
 }
 
@@ -75,7 +76,7 @@ void Player_deserializeData(struct Player * self, unsigned char * buffer, int * 
 	int i;
 	for (i=0; i<sizeof(self->factoryTypes)/sizeof(self->factoryTypes[0]); i++)
 	{
-		Factory_deserialize( &(self->factoryTypes[i]), buffer, index );
+		Factory_deserializeData( &(self->factoryTypes[i]), buffer, index );
 	}
 }
 

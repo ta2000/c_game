@@ -18,6 +18,7 @@ void Unit_loadAttributes(
 {
 	strcpy(self->name, parent->name);
 	self->base.maxHp = parent->base.maxHp;
+	self->base.hp = parent->base.maxHp;
 	self->maxVelocity = parent->maxVelocity;
 	self->damage = parent->damage;
 	self->range = parent->range;
@@ -40,18 +41,56 @@ void Unit_create(
 void Unit_update(struct Unit * self)
 {
     printf("Updating %s [%.2f,%.2f]\n", self->name, self->base.x, self->base.y);
+	printf("\tHP: %d\n", self->base.hp);
+	printf("\tMax Velocity: %d\n", self->maxVelocity);
+	printf("\tDamage: %d\n", self->damage);
+	printf("\tRange: %d\n", self->range);
+	printf("\tFirerate: %d\n", self->firerate);
+	printf("\tShield: %d\n", self->shieldRadius);
+}
+
+void Unit_serializeData(struct Unit * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_serializeData( &(self->base), buffer, index );
+	// Remaining attributes
+	Unit_serialize(self, buffer, index);
+}
+
+void Unit_deserializeData(struct Unit * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_deserializeData( &(self->base), buffer, index );
+	// Remaining attributes
+	Unit_deserialize(self, buffer, index);
+}
+
+void Unit_serializeState(struct Unit * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_serializeState( &(self->base), buffer, index );
+	// Remaining attributes
+	Unit_serialize(self, buffer, index);
+}
+
+void Unit_deserializeState(struct Unit * self, unsigned char * buffer, int * index)
+{
+	// Base
+	GameObject_serializeState( &(self->base), buffer, index );
+	// Remaining attributes
+	Unit_deserialize(self, buffer, index);
 }
 
 void Unit_serialize(struct Unit * self, unsigned char * buffer, int * index)
 {
-	// Base
-	GameObject_serialize( &(self->base), buffer, index );
 	// Name
 	serialize_string(self->name, sizeof(self->name), buffer, index);
 	// Max velocity
 	serialize_int(self->maxVelocity, buffer, index);
 	// Damage
 	serialize_int(self->damage, buffer, index);
+	// Range
+	serialize_int(self->range, buffer, index);
 	// Firerate
 	serialize_char(self->firerate, buffer, index);
 	// Shield Radius
@@ -60,14 +99,14 @@ void Unit_serialize(struct Unit * self, unsigned char * buffer, int * index)
 
 void Unit_deserialize(struct Unit * self, unsigned char * buffer, int * index)
 {
-	// Base
-	GameObject_deserialize( &(self->base), buffer, index );
 	// Name
 	deserialize_string(self->name, sizeof(self->name), buffer, index);
 	// Max velocity
 	deserialize_int( &(self->maxVelocity), buffer, index );
 	// Damage
 	deserialize_int( &(self->damage), buffer, index );
+	// Range
+	deserialize_int( &(self->range), buffer, index );
 	// Firerate
 	deserialize_uchar( &(self->firerate), buffer, index);
 	// Shield Radius

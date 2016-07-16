@@ -39,14 +39,39 @@ void Factory_produceUnit(
 	struct Player * owner
 );
 
-// Serialize factory data
-void Factory_serialize(
+// Save factory data
+void Factory_serializeData(
+	struct Factory * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load factory data
+void Factory_deserializeData(
 	struct Factory * self,
 	unsigned char * buffer,
 	int * index
 );
 
-// Deserialize factory data
+// Save factory state
+void Factory_serializeState(
+	struct Factory * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load factory state
+void Factory_deserializeState(
+	struct Factory * self,
+	unsigned char * buffer,
+	int * index
+);
+
+// Write properties into buffer
+void Factory_serialize(
+	struct Factory * self,
+	unsigned char * buffer,
+	int * index
+);
+// Read properties from buffer
 void Factory_deserialize(
 	struct Factory * self,
 	unsigned char * buffer,

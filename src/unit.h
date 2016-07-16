@@ -31,14 +31,39 @@ void Unit_create(
 // Update the unit
 void Unit_update(struct Unit * self);
 
-// Serialize unit object
-void Unit_serialize(
+// Save unit data
+void Unit_serializeData(
+	struct Unit * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load unit data
+void Unit_deserializeData(
 	struct Unit * self,
 	unsigned char * buffer,
 	int * index
 );
 
-// Deserialize unit object
+// Save unit state
+void Unit_serializeState(
+	struct Unit * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load unit state
+void Unit_deserializeState(
+	struct Unit * self,
+	unsigned char * buffer,
+	int * index
+);
+
+// Write properties into buffer
+void Unit_serialize(
+	struct Unit * self,
+	unsigned char * buffer,
+	int * index
+);
+// Read properties from buffer
 void Unit_deserialize(
 	struct Unit * self,
 	unsigned char * buffer,

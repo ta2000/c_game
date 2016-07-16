@@ -1,2 +1,55 @@
-Packed Unit Size: 72
-Packed Factory Size: 807
+Player: bytes
+	- metal (4)
+	- factoryTypes (3246)
+	- factorypool ()
+	- unitpool ()
+
+Player data: 3490 bytes
+	- metal (4)
+	- factoryTypes (3486)
+
+Factory: 626 bytes
+	- hp (4)
+	- maxHP (4)
+	- name (32)
+	- cost (4)
+	- products (540)
+	- costs (40)
+	- speed (1)
+	- progress (1)
+
+Factory data: 581 bytes
+	- maxHP (4)
+	- name (32)
+	- cost (4)
+	- products (500)
+	- costs (40)
+	- speed (1)
+
+Unit: 54 bytes
+	- hp (4)
+	- maxHp (4)
+	- Name (32)
+	- Velocity
+	- Damage (4)
+	- Range (4)
+	- Firerate (1)
+	- Shield radius (1)
+
+Unit data: 50 bytes
+	- maxHp (4)
+	- Name (32)
+	- Velocity (4)
+	- Damage (4)
+	- Range (4)
+	- Firerate (1)
+	- Shield radius (1)
+
+Unit state: 50 bytes
+	- hp (4)
+	- maxHp (4)
+	- Name (32)
+	- Damage (4)
+	- Range (4)
+	- Firerate (1)
+	- Shield radius (1)

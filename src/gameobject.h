@@ -17,15 +17,27 @@ void GameObject_create(struct GameObject * self, float x, float y);
 // Return whether health is greater than 0
 _Bool GameObject_inUse(struct GameObject * self);
 
-// Serialize gameobject object
-void GameObject_serialize(
+// Save gameobject data
+void GameObject_serializeData(
+	struct GameObject * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load gameobject data
+void GameObject_deserializeData(
 	struct GameObject * self,
 	unsigned char * buffer,
 	int * index
 );
 
-// Deserialize gameobject object
-void GameObject_deserialize(
+// Save gameobject state
+void GameObject_serializeState(
+	struct GameObject * self,
+	unsigned char * buffer,
+	int * index
+);
+// Load gameobject state
+void GameObject_deserializeState(
 	struct GameObject * self,
 	unsigned char * buffer,
 	int * index

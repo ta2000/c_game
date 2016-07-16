@@ -13,6 +13,8 @@ size_t getFileSize(char * path)
 	size_t size = ftell(file);
 	rewind(file);
 
+	fclose(file);
+
 	return size;
 }
 
@@ -28,6 +30,8 @@ size_t readFile(char * path, unsigned char * buffer, size_t size)
 	size_t bytesRead = 0;
 	bytesRead = fread(buffer, 1, size, file);
 
+	fclose(file);
+
 	return bytesRead;
 }
 
@@ -37,6 +41,8 @@ size_t writeFile(char * path, unsigned char * buffer, size_t size)
 
 	size_t bytesWritten;
 	bytesWritten = fwrite(buffer, 1, size, file);
+
+	fclose(file);
 
 	return bytesWritten;
 }

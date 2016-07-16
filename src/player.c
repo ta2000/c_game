@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "serialize.h"
 #include "gameobject.h"
@@ -72,6 +73,8 @@ void Player_deserializeData(struct Player * self, unsigned char * buffer, int * 
 {
 	// Metal
 	deserialize_int( &(self->metal), buffer, index );
+	// Clear memory before loading
+	memset(self->factoryTypes, 0, sizeof(self->factoryTypes));
 	// Factory types
 	int i;
 	for (i=0; i<sizeof(self->factoryTypes)/sizeof(self->factoryTypes[0]); i++)

@@ -25,6 +25,7 @@ void Factory_loadAttributes(
 {
 	strcpy(self->name, parent->name);
 	self->base.maxHp = parent->base.maxHp;
+	self->base.hp = parent->base.maxHp;
 	self->cost = parent->cost;
 	memcpy(self->products, parent->products, sizeof(self->products));
 	memcpy(self->costs, parent->costs, sizeof(self->costs));
@@ -109,12 +110,14 @@ void Factory_serializeState(struct Factory * self, unsigned char * buffer, int *
 {	
 	GameObject_serializeState( &(self->base), buffer, index );
 	Factory_serialize(self, buffer, index);
+	serialize_char(self->progress, buffer, index);
 }
 
 void Factory_deserializeState(struct Factory * self, unsigned char * buffer, int * index)
 {
 	GameObject_deserializeState( &(self->base), buffer, index );
 	Factory_deserialize(self, buffer, index);
+	deserialize_uchar( &(self->progress), buffer, index);
 }
 
 void Factory_serialize(struct Factory * self, unsigned char * buffer, int * index)

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "gameobject.h"
 #include "unit.h"
@@ -61,16 +62,17 @@ void Unitpool_serialize(struct Unitpool * self, unsigned char * buffer, int * in
 	int i;
 	for (i=0; i<sizeof(self->units)/sizeof(self->units[0]); i++)
 	{
-		Unit_serialize( &(self->units[i]), buffer, index );
+		Unit_serializeState( &(self->units[i]), buffer, index );
 	}
 }
 
 void Unitpool_deserialize(struct Unitpool * self, unsigned char * buffer, int * index)
 {
-	// Units
+	// Clear memory before loading
+	memset(self->units, 0, sizeof(self->units));
 	int i;
 	for (i=0; i<sizeof(self->units)/sizeof(self->units[0]); i++)
 	{
-		Unit_deserialize( &(self->units[i]), buffer, index );
+		Unit_deserializeState( &(self->units[i]), buffer, index );
 	}
 }

@@ -76,7 +76,7 @@ void Unit_serializeState(struct Unit * self, unsigned char * buffer, int * index
 void Unit_deserializeState(struct Unit * self, unsigned char * buffer, int * index)
 {
 	// Base
-	GameObject_serializeState( &(self->base), buffer, index );
+	GameObject_deserializeState( &(self->base), buffer, index );
 	// Remaining attributes
 	Unit_deserialize(self, buffer, index);
 }

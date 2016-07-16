@@ -27,7 +27,12 @@ void handleInput(struct Game * game)
 	
 	if (key == 'f')
 	{
-		Player_placeFactory(player, 16, 17, &(player->factoryTypes[1]));
+		Player_placeFactory(player, 16, 17, &(player->factoryTypes[0]));
+	}
+	else if (key == 'e')
+	{
+		player->factorypool.factories[0].base.selected = 1;
+		printf("Selected %s\n", player->factorypool.factories[0].name);
 	}
 	else if (key == 'u')
 	{

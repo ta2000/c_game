@@ -1,12 +1,17 @@
 Player: bytes
 	- metal (4)
-	- factoryTypes (3246)
-	- factorypool ()
-	- unitpool ()
+	- factoryTypes (3486)
+	- factorypool (1891)
+	- unitpool (270)
 
 Player data: 3490 bytes
 	- metal (4)
 	- factoryTypes (3486)
+
+Player state: 2165 bytes
+	- metal (4)
+	- factorypool (1891)
+	- unitpool (270)
 
 Factory: 626 bytes
 	- hp (4)
@@ -25,6 +30,16 @@ Factory data: 581 bytes
 	- products (500)
 	- costs (40)
 	- speed (1)
+
+Factory state: 631 bytes
+	- hp (4)
+	- maxHP (4)
+	- name (32)
+	- cost (4)
+	- products (500)
+	- costs (40)
+	- speed (1)
+	- progress (1)
 
 Unit: 54 bytes
 	- hp (4)
@@ -45,11 +60,13 @@ Unit data: 50 bytes
 	- Firerate (1)
 	- Shield radius (1)
 
-Unit state: 50 bytes
+Unit state: 54 bytes
 	- hp (4)
 	- maxHp (4)
 	- Name (32)
+	- Velocity (4)
 	- Damage (4)
 	- Range (4)
 	- Firerate (1)
 	- Shield radius (1)
+

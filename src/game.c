@@ -100,7 +100,7 @@ _Bool Game_deserializeData(struct Game * self)
 _Bool Game_serializeState(struct Game * self)
 {
 	char * saveFile = "assets/savegames/game1.sav";
-	size_t fileSize = 3000;
+	size_t fileSize = 2165;
 
 	unsigned char * buffer = calloc(1, fileSize);
 	int index = 0;

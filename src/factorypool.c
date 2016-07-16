@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "gameobject.h"
 #include "unit.h"
@@ -69,6 +70,8 @@ void Factorypool_serialize(struct Factorypool * self, unsigned char * buffer, in
 
 void Factorypool_deserialize(struct Factorypool * self, unsigned char * buffer, int * index)
 {
+	// Clear memory before loading
+	memset(self->factories, 0, sizeof(self->factories));
 	// Factories
 	int i;
 	for (i=0; i<sizeof(self->factories)/sizeof(self->factories[0]); i++)
